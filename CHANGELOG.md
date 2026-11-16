@@ -1,6 +1,10 @@
 # Changelog
 
-Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches a universal macOS disk image.
+Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
+
+## 0.13.1 — Disk images for Apple silicon and Intel
+
+- Releases now attach two disk images, `…_aarch64.dmg` for Apple silicon and `…_x64.dmg` for Intel. The universal build couldn't include `cairn-mcp`, so 0.13.0 has no disk image.
 
 ## 0.13.0 — A new vault sets itself up
 

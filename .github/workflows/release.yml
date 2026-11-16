@@ -2,8 +2,11 @@ name: Release
 
 # Each new version on main is a release: tag v<version> from package.json,
 # take the notes from its CHANGELOG section, then build Cairn for Apple
-# silicon and Intel Macs and attach the disk image. A version that's already
-# released is skipped.
+# silicon and for Intel Macs and attach a disk image for each. A version
+# that's already released, with its disk images, is skipped; one whose build
+# failed is built again.
+# (Two builds, not one universal one: a universal build only merges the main
+# binary, and Cairn also ships cairn-mcp.)
 on:
   push:
     branches: [main]
@@ -26,7 +29,11 @@ jobs:
           v=$(node -p "require('./package.json').version")
           tag="v$v"
           if gh release view "$tag" >/dev/null 2>&1; then
-            echo "$tag already released"; exit 0
+            dmgs=$(gh release view "$tag" --json assets --jq '[.assets[].name | select(endswith(".dmg"))] | length')
+            if [ "$dmgs" -ge 2 ]; then echo "$tag already released"; exit 0; fi
+            echo "$tag has $dmgs disk images; building"
+            echo "id=$(gh release view "$tag" --json databaseId --jq .databaseId)" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
           title=$(grep -m1 -F "## $v — " CHANGELOG.md | sed 's/^## //')
           awk -v h="## $v — " 'index($0, h) == 1 {on=1; next} /^## / {on=0} on' CHANGELOG.md > notes.md
@@ -40,6 +47,10 @@ jobs:
     needs: release
     if: needs.release.outputs.id != ''
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [aarch64-apple-darwin, x86_64-apple-darwin]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
@@ -50,14 +61,14 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
         with:
-          targets: aarch64-apple-darwin,x86_64-apple-darwin
+          targets: ${{ matrix.target }}
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: src-tauri
-      - name: Build and attach (universal, unsigned)
+      - name: Build and attach (unsigned)
         uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # action-v1.0.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           releaseId: ${{ needs.release.outputs.id }}
-          args: --target universal-apple-darwin --bundles dmg
+          args: --target ${{ matrix.target }} --bundles dmg

@@ -10,7 +10,7 @@ Cairn is a Mac app, built for Apple silicon and Intel Macs.
 
 ## Install
 
-1. Download the `.dmg` from the latest [release](../../releases/latest) and drag **Cairn** to Applications.
+1. Download the disk image from the latest [release](../../releases/latest): `…_aarch64.dmg` for Apple silicon (M1 and later), `…_x64.dmg` for Intel. Open it and drag **Cairn** to Applications.
 2. The builds aren't signed or notarized yet, so macOS blocks the first launch. Either:
    - open Cairn once, then go to **System Settings → Privacy & Security** and click **Open Anyway** next to the message about Cairn; or
    - run `xattr -dr com.apple.quarantine /Applications/Cairn.app` in Terminal (this also fixes a "Cairn is damaged" message).
@@ -18,7 +18,11 @@ Cairn is a Mac app, built for Apple silicon and Intel Macs.
 
 Or build it yourself: see *Develop* below.
 
-**Version 0.13.0.** See [CHANGELOG.md](CHANGELOG.md) and the Releases page.
+**Version 0.13.1.** See [CHANGELOG.md](CHANGELOG.md) and the Releases page.
+
+### New in 0.13.1
+
+- Public releases come with two disk images, one for Apple silicon and one for Intel Macs.
 
 ### New in 0.13.0
 
@@ -154,7 +158,7 @@ See [the design guide](docs/design/cairn-specimen.html) for the type, cover styl
 
 ## Releases
 
-Each version on `main` is a release: the Release workflow tags `v<version>`, publishes the notes from [CHANGELOG.md](CHANGELOG.md), and attaches a universal macOS disk image.
+Each version on `main` is a release: the Release workflow tags `v<version>`, publishes the notes from [CHANGELOG.md](CHANGELOG.md), and attaches macOS disk images for Apple silicon and Intel.
 
 ## Layout
 
