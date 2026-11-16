@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 550">
+  <!-- cairn-cover · style: monoprint · "Hunter's Moon" (Cairn No. 0004) -->
+  <defs>
+    <clipPath id="page"><rect width="350" height="550"/></clipPath>
+    <!-- Gel-plate ink: brayer streaks knock holes in solid ink, edges wander. -->
+    <filter id="gel" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.11" numOctaves="3" seed="11" result="streak"/>
+      <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.3" result="mask"/>
+      <feComposite in="SourceGraphic" in2="mask" operator="in" result="inked"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="4" result="warp"/>
+      <feDisplacementMap in="inked" in2="warp" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Torn collage paper: ragged edge only. -->
+    <filter id="torn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Ghost print: second, fainter pull from the same plate. -->
+    <filter id="ghost" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.3" numOctaves="2" seed="21" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3 0 0 0 1.9" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in"/>
+    </filter>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.22"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <g clip-path="url(#page)">
+
+  <!-- warm-white stock -->
+  <rect width="350" height="550" fill="#efe6d4"/>
+
+  <!-- collage: pale ochre sheet, slightly askew -->
+  <rect x="26" y="58" width="288" height="250" fill="#ead19f" filter="url(#torn)" transform="rotate(-2.5 170 183)"/>
+
+  <!-- dusk sky pull -->
+  <g style="mix-blend-mode:multiply">
+    <rect x="0" y="0" width="350" height="300" fill="#d38c6b" opacity="0.55" filter="url(#gel)"><animate attributeName="opacity" values="0;0.55;0.55" keyTimes="0;0.3;1" calcMode="spline" keySplines="0.25 0.6 0.3 1;0 0 1 1" dur="2.6s" fill="freeze"/></rect>
+  </g>
+
+  <!-- the moon, and its ghost -->
+  <g style="mix-blend-mode:multiply">
+    <circle cx="196" cy="176" r="74" fill="#b4532a" opacity="0.35" filter="url(#ghost)"><animate attributeName="cy" values="262;262;176;176" keyTimes="0;0.12;0.9;1" calcMode="spline" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="2.6s" fill="freeze"/><animate attributeName="opacity" values="0;0;0.35;0.35" keyTimes="0;0.12;0.5;1" calcMode="spline" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="2.6s" fill="freeze"/></circle>
+    <circle cx="208" cy="164" r="68" fill="#e3a033" filter="url(#gel)"><animate attributeName="cy" values="250;250;164;164" keyTimes="0;0.08;0.8;1" calcMode="spline" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="2.6s" fill="freeze"/></circle>
+  </g>
+
+  <!-- gleaned field -->
+  <g style="mix-blend-mode:multiply">
+    <path d="M0 300 C 90 288, 250 292, 350 302 L350 550 L0 550 Z" fill="#a24a2a" filter="url(#gel)"/>
+    <g stroke="#6b2b18" stroke-width="7" stroke-linecap="round" opacity="0.55" filter="url(#torn)" fill="none">
+      <path d="M175 304 L-40 550"/>
+      <path d="M175 304 L40 550"/>
+      <path d="M175 304 L120 550"/>
+      <path d="M175 304 L200 550"/>
+      <path d="M175 304 L280 550"/>
+      <path d="M175 304 L370 550"/>
+      <path d="M175 304 L460 520"/>
+      <path d="M175 304 L-120 500"/>
+    </g>
+  </g>
+
+  <!-- lone oak and a fence line on the horizon -->
+  <g fill="#2b1d16" filter="url(#torn)">
+    <rect x="70" y="252" width="6" height="48"/>
+    <circle cx="73" cy="246" r="20"/>
+    <circle cx="58" cy="258" r="13"/>
+    <circle cx="90" cy="256" r="14"/>
+    <circle cx="74" cy="228" r="13"/>
+    <g opacity="0.85">
+      <rect x="226" y="286" width="3" height="16"/>
+      <rect x="252" y="287" width="3" height="16"/>
+      <rect x="278" y="288" width="3" height="16"/>
+      <rect x="304" y="289" width="3" height="16"/>
+      <rect x="330" y="290" width="3" height="16"/>
+      <path d="M220 292 L350 296 L350 298 L220 294 Z"/>
+    </g>
+  </g>
+
+  <!-- ink build-up at the plate edge -->
+  <rect x="12" y="12" width="326" height="526" rx="10" fill="none" stroke="#7a3b22" stroke-width="3" opacity="0.3" filter="url(#torn)"/>
+
+  <!-- paper grain over everything -->
+  <rect width="350" height="550" filter="url(#grain)" style="mix-blend-mode:multiply"/>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- cairn-cover · button · monoprint · moon over a gleaned field -->
+  <defs>
+    <clipPath id="disc"><circle cx="100" cy="100" r="100"/></clipPath>
+    <filter id="gel" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.2" numOctaves="3" seed="11" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.3" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="i"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="4" result="w"/>
+      <feDisplacementMap in="i" in2="w" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="ghost" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04 0.5" numOctaves="2" seed="21" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3 0 0 0 1.9" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in"/>
+    </filter>
+    <filter id="torn"><feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="2" seed="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>
+  </defs>
+  <g clip-path="url(#disc)">
+    <rect width="200" height="200" fill="#efe6d4"/>
+    <g style="mix-blend-mode:multiply">
+      <rect width="200" height="140" fill="#d38c6b" opacity="0.55" filter="url(#gel)"/>
+      <circle cx="104" cy="82" r="46" fill="#b4532a" opacity="0.35" filter="url(#ghost)"/>
+      <circle cx="112" cy="74" r="42" fill="#e3a033" filter="url(#gel)"/>
+      <path d="M0 136 C 60 128, 140 130, 200 138 L200 200 L0 200 Z" fill="#a24a2a" filter="url(#gel)"/>
+      <g stroke="#6b2b18" stroke-width="5" opacity="0.55" filter="url(#torn)"><path d="M100 138 L20 210"/><path d="M100 138 L80 210"/><path d="M100 138 L130 210"/><path d="M100 138 L190 210"/></g>
+    </g>
+    <g fill="#2b1d16" filter="url(#torn)">
+      <rect x="42" y="104" width="4" height="34"/>
+      <circle cx="44" cy="98" r="14"/><circle cx="34" cy="106" r="9"/><circle cx="56" cy="105" r="10"/>
+    </g>
+  </g>
+</svg>

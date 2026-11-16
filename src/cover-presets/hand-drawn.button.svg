@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- cairn-cover · button · hand-drawn · a cairn, inked -->
+  <defs>
+    <clipPath id="disc"><circle cx="100" cy="100" r="100"/></clipPath>
+    <filter id="pen" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="turbulence" baseFrequency="0.06" numOctaves="2" seed="3" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#2a2420" stroke-width="1.1"/>
+    </pattern>
+  </defs>
+  <g clip-path="url(#disc)">
+    <rect width="200" height="200" fill="#ece3cf"/>
+    <g fill="none" stroke="#2a2420" stroke-linecap="round" stroke-linejoin="round" filter="url(#pen)">
+      <path d="M10 150 C 60 140, 140 138, 190 148" stroke-width="3"/>
+      <!-- stones bottom→top, round and filled with paper so each sits on the one below -->
+      <ellipse cx="100" cy="132" rx="42" ry="17" stroke-width="3" fill="#ece3cf"/>
+      <ellipse cx="95" cy="104" rx="31" ry="15" stroke-width="3" fill="#ece3cf"/>
+      <ellipse cx="104" cy="80" rx="23" ry="12" stroke-width="3" fill="#ece3cf"/>
+      <ellipse cx="99" cy="61" rx="15" ry="9" stroke-width="3" fill="#ece3cf"/>
+      <ellipse cx="101" cy="47" rx="9" ry="6" stroke-width="3" fill="#ece3cf"/>
+      <path d="M30 156 l3 -8 l3 8 M160 152 l3 -8 l3 8" stroke-width="1.6"/>
+      <circle cx="156" cy="44" r="10" stroke-width="2"/>
+    </g>
+    <g filter="url(#pen)">
+      <path d="M60 136 Q 100 156 142 136 L 140 142 Q 100 160 62 142 Z" fill="url(#hatch)"/>
+    </g>
+  </g>
+</svg>

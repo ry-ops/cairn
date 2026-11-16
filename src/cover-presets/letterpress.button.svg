@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- cairn-cover · button · letterpress · moon and pines, two inks -->
+  <defs>
+    <clipPath id="disc"><circle cx="100" cy="100" r="100"/></clipPath>
+    <filter id="press" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="9" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -7 0 0 0 5.6" result="salt"/>
+      <feComposite in="SourceGraphic" in2="salt" operator="in" result="ink"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
+      <feOffset in="b" dx="0.9" dy="1.1" result="o"/>
+      <feComposite in="SourceAlpha" in2="o" operator="out" result="rim"/>
+      <feFlood flood-color="#000" flood-opacity="0.3"/>
+      <feComposite in2="rim" operator="in" result="bite"/>
+      <feMerge><feMergeNode in="ink"/><feMergeNode in="bite"/></feMerge>
+    </filter>
+  </defs>
+  <g clip-path="url(#disc)">
+    <rect width="200" height="200" fill="#f2ecdf"/>
+    <g transform="translate(1.4 -1)" fill="#b4482b" filter="url(#press)">
+      <circle cx="100" cy="84" r="52"/>
+    </g>
+    <g fill="#1f3a5a" filter="url(#press)" style="mix-blend-mode:multiply">
+      <path d="M20 150 L38 96 L56 150 Z M44 150 L66 76 L88 150 Z M78 150 L98 104 L118 150 Z M106 150 L130 70 L154 150 Z M142 150 L160 100 L178 150 Z"/>
+      <rect x="0" y="148" width="200" height="60"/>
+    </g>
+    <g fill="#f2ecdf">
+      <path d="M40 170 l7 -10 l7 10 Z M72 170 l7 -10 l7 10 Z M104 170 l7 -10 l7 10 Z M136 170 l7 -10 l7 10 Z"/>
+    </g>
+  </g>
+</svg>

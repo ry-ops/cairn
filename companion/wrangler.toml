@@ -1,0 +1,12 @@
+# Cairn companion: Cloudflare Pages + Functions, behind Cloudflare Access.
+# Set the three values below for your own deployment (see README.md).
+# Secrets (wrangler pages secret put …): GITHUB_TOKEN (fine-grained, contents
+# read/write on the vault repo only), ACCESS_AUD.
+name = "cairn-notes"
+pages_build_output_dir = "public"
+compatibility_date = "2026-11-01"
+
+[vars]
+VAULT_REPO = "you/your-cairn-vault"
+VAULT_BRANCH = "main"
+ACCESS_TEAM_DOMAIN = "yourteam.cloudflareaccess.com"

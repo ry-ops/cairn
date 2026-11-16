@@ -1,0 +1,331 @@
+<!-- Source for docs/design/cairn-specimen.html. Edit this, then run: python3 -I docs/design/build.py -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cairn Specimen Book</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Rock+Salt&family=Architects+Daughter&family=Kalam:wght@400;700&family=Patrick+Hand&family=Caveat:wght@400;700&family=Gochi+Hand&family=Nanum+Pen+Script&display=swap">
+<style>
+/* Layout: a field-kit spec sheet on a kraft desk. Ruled sample cards, cover plates in a row. */
+:root {
+  --desk: #e4d6bd;
+  --desk-2: #d8c7a8;
+  --paper: #fbf8f1;
+  --ink: #2a2622;
+  --ink-soft: #5d554b;
+  --ink-mark: #a0937f;
+  --rule: rgba(64, 98, 128, 0.18);
+  --accent: #c2502a;
+  --line: rgba(42, 38, 34, 0.14);
+  --shadow: 0 1px 2px rgba(42, 30, 18, 0.18), 0 8px 22px rgba(42, 30, 18, 0.14);
+  --f-display: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --desk: #1d1a16; --desk-2: #25211b; --paper: #191714; --ink: #ebe4d6; --ink-soft: #b8ad9c;
+    --ink-mark: #6f665a; --rule: rgba(180, 200, 220, 0.11); --accent: #ee7a4c; --line: rgba(235, 228, 214, 0.12);
+    --shadow: 0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.35); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --desk: #1d1a16; --desk-2: #25211b; --paper: #191714; --ink: #ebe4d6; --ink-soft: #b8ad9c;
+  --ink-mark: #6f665a; --rule: rgba(180, 200, 220, 0.11); --accent: #ee7a4c; --line: rgba(235, 228, 214, 0.12);
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 8px 22px rgba(0,0,0,.35); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--desk);
+  color: var(--ink);
+  font: 15px/1.6 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 56px;
+}
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; }
+.eyebrow {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+header.top { display: grid; gap: 10px; max-width: 70ch; }
+header.top h1 { font-size: clamp(34px, 6vw, 56px); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.05; }
+header.top p { margin: 0; color: var(--ink-soft); }
+.mark { width: 34px; height: 34px; }
+
+section { display: grid; gap: 22px; }
+.sec-head { display: grid; gap: 6px; max-width: 70ch; }
+.sec-head h2 { font-size: 26px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.sec-head p { margin: 0; color: var(--ink-soft); }
+
+/* ---- handwriting ---- */
+.try { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.try label { font-family: var(--f-mono); font-size: 12px; color: var(--ink-soft); }
+.try input {
+  flex: 1 1 320px; min-width: 0;
+  padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--paper); color: var(--ink); font: 14px var(--f-body);
+}
+.try input:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.fonts { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+.card {
+  background: var(--paper);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-width: 0;
+  overflow: hidden;
+}
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 12px 16px 6px; border-bottom: 2px solid var(--line); }
+.card-head h3 { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.card-head .meta { font-family: var(--f-mono); font-size: 11px; color: var(--ink-soft); white-space: nowrap; }
+.sample {
+  --row: 30px;
+  margin: 0;
+  padding: 6px 18px 14px;
+  min-height: calc(var(--row) * 6 + 20px);
+  line-height: var(--row);
+  background-image: linear-gradient(transparent calc(var(--row) - 1px), var(--rule) 1px);
+  background-size: 100% var(--row);
+  background-position: 0 calc(6px + 4px);
+  overflow-wrap: anywhere;
+  color: var(--ink);
+}
+.card-foot { padding: 8px 16px 12px; font-size: 13px; color: var(--ink-soft); border-top: 1px dashed var(--line); }
+.card-foot b { color: var(--ink); font-weight: 600; }
+.pick { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 999px; background: var(--accent); color: var(--paper); font: 600 10px/18px var(--f-display); letter-spacing: 0.12em; text-transform: uppercase; vertical-align: 2px; }
+
+/* ---- covers ---- */
+.covers { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 26px; }
+.plate { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.cover {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 350 / 550;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 200ms ease;
+}
+.cover:hover { transform: translateY(-3px) rotate(-0.6deg); }
+.cover img { display: block; width: 100%; height: 100%; }
+/* app overlays, at the same positions Cairn draws them */
+.cover .spine { position: absolute; inset: 0 auto 0 0; width: 5%; background: rgba(0,0,0,.1); }
+.cover .staple { position: absolute; left: 1.6%; width: 1.6%; height: 8.2%; border-radius: 2px; background: #b9bcc0; }
+.cover .no {
+  position: absolute; left: 10%; top: 7.3%;
+  padding: 1px 5px; border-radius: 2px;
+  font: 700 clamp(8px, 2.6cqw, 11px)/1.3 var(--f-display); letter-spacing: 0.2em;
+}
+.cover .label {
+  position: absolute; left: 11.4%; top: 68.2%; width: 77.1%; height: 20.9%;
+  display: grid; place-items: center; text-align: center;
+  border: 1.5px solid; padding: 4px;
+  font: 700 clamp(12px, 5cqw, 19px)/1.1 var(--f-display); letter-spacing: 0.1em; text-transform: uppercase;
+}
+.cover { container-type: inline-size; }
+.plate h3 { font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; }
+.plate .style { font-family: var(--f-mono); font-size: 12px; color: var(--accent); }
+.pair { display: flex; align-items: center; gap: 12px; }
+.btn-art { width: 64px; height: 64px; border-radius: 50%; box-shadow: 2px 5px 10px rgba(30, 18, 6, 0.35), inset 0 0 0 1px rgba(0, 0, 0, 0.15); flex: none; }
+.cw { font-size: 12.5px; color: var(--ink-soft); }
+.rules { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 80ch; color: var(--ink-soft); }
+.rules b { color: var(--ink); }
+.plate ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 13.5px; display: grid; gap: 3px; }
+
+/* ---- app shots ---- */
+.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+figure { margin: 0; display: grid; gap: 8px; min-width: 0; }
+figure img { width: 100%; border-radius: 10px; box-shadow: var(--shadow); display: block; }
+figcaption { font-size: 13px; color: var(--ink-soft); }
+
+.ask {
+  background: var(--paper); border-radius: 10px; padding: 18px 20px; box-shadow: var(--shadow);
+  display: grid; gap: 8px; max-width: 760px;
+}
+.ask code { font-family: var(--f-mono); font-size: 13px; background: var(--desk-2); padding: 2px 6px; border-radius: 4px; }
+.ask p { margin: 0; }
+footer { color: var(--ink-soft); font-size: 13px; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><ellipse cx="20" cy="34" rx="14" ry="4.5"/><ellipse cx="19" cy="25.5" rx="10.5" ry="4"/><ellipse cx="21" cy="18" rx="7.5" ry="3.4"/><ellipse cx="20" cy="11.5" rx="4.8" ry="2.8"/><ellipse cx="20.5" cy="6.4" rx="2.6" ry="2"/></g></svg>
+    <div class="eyebrow">Cairn · Design guide</div>
+    <h1>Fonts, Covers &amp; Buttons</h1>
+    <p>How Cairn looks and why: the page's handwriting, the cover styles, and All Notebooks. Covers on this page are the app's built-in presets (<code>src/cover-presets/</code>), and they double as the <code>cairn-cover</code> skill's worked examples. Rebuild with <code>python3 -I docs/design/build.py</code>.</p>
+  </header>
+
+  <section aria-labelledby="h-hand">
+    <div class="sec-head">
+      <div class="eyebrow">01 · The page</div>
+      <h2 id="h-hand">Handwriting</h2>
+      <p><b>Rock Salt is Cairn's hand</b> (Nov 15, 2026, replacing Caveat). It's the editor's Handwritten option and the marker on the inside front cover. Apache-2.0, bundled via Fontsource so it works offline. Typewriter (monospace) stays the default. The rest were considered and are kept for reference. Type your own line to compare.</p>
+    </div>
+    <div class="try">
+      <label for="sample-input">sample</label>
+      <input id="sample-input" type="text" value="Oct 18 · Brighton Beach. Wind NE 15 kt, 34°F. Ice shelves forming on the rocks below the light. 3 loons, 1 eagle. Bring the thermos next time.">
+    </div>
+    <div class="fonts" id="fonts"></div>
+  </section>
+
+  <section aria-labelledby="h-covers">
+    <div class="sec-head">
+      <div class="eyebrow">02 · The cover</div>
+      <h2 id="h-covers">Covers</h2>
+      <p>A cover is a self-contained SVG (350×550, 2–5 KB) made with filters (turbulence, displacement, lighting). Cairn draws the edition number, staples and title plate on top. Each preset comes in colorways (the round swatch beside each cover), and each carries a one-shot animation of how it was made. That animation plays as covers arrive in All Notebooks and as a notebook arrives on the desktop, then holds still. The monoprint borrows the gel-plate process behind Field Notes' “Hunter's Moon”, not its art.</p>
+    </div>
+    <div class="covers">
+      <div class="plate">
+        <div class="cover">
+          <img src="{{monoprint}}" alt="Monoprint cover: an ochre moon and its faint ghost over a rust field with converging furrows, a lone oak and a fence line, brayer streaks through the ink">
+          <span class="spine"></span><span class="staple" style="top:23.6%"></span><span class="staple" style="top:68%"></span>
+          <span class="no" style="background:#e9e2d0e6;color:#2b2a26">No. 0004</span>
+          <span class="label" style="background:#e9e2d0eb;color:#2b2a26;border-color:#2b2a26">Hunter's Moon</span>
+        </div>
+        <div class="pair"><img class="btn-art" src="{{monoprint.button}}" alt="Colorway swatch"><span class="cw">Harvest · Winter · Spring</span></div>
+        <span class="style">monoprint · gel plate</span>
+        <ul>
+          <li>Brayer streaks through solid ink</li>
+          <li>Ghost pull of the moon, offset</li>
+          <li>Torn collage sheet under the inks</li>
+          <li>Pairs with <code>ruling: #c98a3a</code> (ochre lines)</li>
+        </ul>
+      </div>
+      <div class="plate">
+        <div class="cover">
+          <img src="{{watercolor}}" alt="Watercolor cover: Lake Superior shoreline with layered blue-green ridges, a low sun, gulls, and a small lighthouse on a dark headland">
+          <span class="spine"></span><span class="staple" style="top:23.6%"></span><span class="staple" style="top:68%"></span>
+          <span class="no" style="background:#2f4f6be6;color:#efe6d2">No. 0005</span>
+          <span class="label" style="background:#2f4f6beb;color:#efe6d2;border-color:#efe6d2">North Shore</span>
+        </div>
+        <div class="pair"><img class="btn-art" src="{{watercolor.button}}" alt="Colorway swatch"><span class="cw">North Shore · Sunset · First Snow</span></div>
+        <span class="style">watercolor · wet-in-wet</span>
+        <ul>
+          <li>Bleeding edges with pigment rims</li>
+          <li>Granulation in the lake wash</li>
+          <li>Cold-press paper tooth, lit from the upper left</li>
+          <li>Glints lifted out with a dry brush</li>
+        </ul>
+      </div>
+      <div class="plate">
+        <div class="cover">
+          <img src="{{hand-drawn}}" alt="Hand-drawn cover: pen-and-ink sketch of a stone cairn on a ridge below two mountain ranges, hatching on shadow sides, pines, sun and a small compass">
+          <span class="spine"></span><span class="staple" style="top:23.6%"></span><span class="staple" style="top:68%"></span>
+          <span class="no" style="background:#e9e2d0e6;color:#2b2a26">No. 0006</span>
+          <span class="label" style="background:#e9e2d0eb;color:#2b2a26;border-color:#2b2a26">Ridge Sketches</span>
+        </div>
+        <div class="pair"><img class="btn-art" src="{{hand-drawn.button}}" alt="Colorway swatch"><span class="cw">Sepia · Navy ink · On kraft · Night</span></div>
+        <span class="style">hand-drawn · pen &amp; ink</span>
+        <ul>
+          <li>Pen jitter: nothing ruler-straight</li>
+          <li>Line weight sets depth</li>
+          <li>Hatching instead of fills</li>
+          <li>Hand-ruled frame with overshooting corners</li>
+        </ul>
+      </div>
+      <div class="plate">
+        <div class="cover">
+          <img src="{{letterpress}}" alt="Letterpress cover: a rust moon behind a row of navy pines in a double-rule frame, overprint where they overlap, speckled ink and blind-debossed rings">
+          <span class="spine"></span><span class="staple" style="top:23.6%"></span><span class="staple" style="top:68%"></span>
+          <span class="no" style="background:#e9e2d0e6;color:#2b2a26">No. 0007</span>
+          <span class="label" style="background:#e9e2d0eb;color:#2b2a26;border-color:#2b2a26">Pine Press</span>
+        </div>
+        <div class="pair"><img class="btn-art" src="{{letterpress.button}}" alt="Colorway swatch"><span class="cw">Rust &amp; Navy · Pine &amp; Gold · Cherry on Kraft · Blaze</span></div>
+        <span class="style">letterpress · two spot inks</span>
+        <ul>
+          <li>Rust and navy overprint to near-black</li>
+          <li>Rust plate 1.6 px off register</li>
+          <li>Salty ink with impression bite</li>
+          <li>Blind-debossed rings around the moon</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ask">
+      <div class="eyebrow">Using the skill</div>
+      <p>Built-in covers are one click in the cover picker. For an original, the picker writes the request for you, or in Claude Code inside the <code>cairn</code> repo ask: <code>make a watercolor cover for Trail Log, early winter, frozen creek</code>. The skill reads the notebook and a few notes for motifs, plans the palette, draws <code>cover.svg</code> and <code>button.svg</code>, validates them with <code>check_cover.py</code>, renders previews and looks at them, then sets <code>cover:</code> and <code>button:</code> in <code>notebook.yml</code>. Covers you love can be saved to the shared library (<code>&lt;vault&gt;/covers/</code>) for any notebook.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-board">
+    <div class="sec-head">
+      <div class="eyebrow">03 · The library</div>
+      <h2 id="h-board">All Notebooks</h2>
+      <p>Every notebook's cover in a grid (⌘0, View → All Notebooks, or the grid icon on the shelf). It replaced the buttons on the desktop, which had replaced the corkboard (both Nov 15, 2026).</p>
+    </div>
+    <figure>
+      <img src="{{all-notebooks}}" alt="A grid of notebook covers: kraft, blaze and pine editions with the cairn mark, then monoprint, watercolor, hand-drawn and letterpress covers, each with its title and note count beneath">
+      <figcaption>Covers come in one after another; any with motion in their art play it as they arrive.</figcaption>
+    </figure>
+    <ul class="rules">
+      <li><b>The covers are the library.</b> Real proportions (3.5 × 5.5), spine, staples and stickers, with the title, note count and the date last written beneath.</li>
+      <li><b>Sort</b> by number, A–Z or most recently written. The choice is remembered.</li>
+      <li><b>Find</b> by typing (or ⌘F). Click a cover to open the notebook; Esc goes back.</li>
+      <li><b>Motion on arrival only.</b> Covers fade up in turn, and animated art plays once as each one lands. Hover lifts a cover slightly; nothing loops.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-app">
+    <div class="sec-head">
+      <div class="eyebrow">04 · In the app</div>
+      <h2 id="h-app">Notebook mode &amp; the cover picker</h2>
+      <p>⇧⌘F (View → Notebook Mode) goes full screen with just the notebook on the desk: running header, page numbers, ⌥⌘← and ⌥⌘→ to turn pages, Esc to leave. Each page can override its notebook's paper; <code>ruling:</code> colors the lines.</p>
+    </div>
+    <div class="shots">
+      <figure>
+        <img src="{{notebook-mode}}" alt="Cairn notebook mode: a single ruled page with ochre lines and a Caveat handwritten entry centered on a kraft desk, the cover peeking out behind">
+        <figcaption>Notebook mode (earlier build, in Caveat). The inside front cover is now the bare board with the details and contents written on it in Rock Salt.</figcaption>
+      </figure>
+      <figure>
+        <img src="{{cover-picker}}" alt="Cairn cover picker: built-in covers, colorway chips with button previews, title plate swatches, and a Make an original request">
+        <figcaption>The cover picker: presets × colorways, your covers, title plate, and "Make an original".</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <footer>Cairn · ry-ops · design guide · fonts are SIL OFL 1.1 (Google Fonts on this page, self-hosted via Fontsource in the app).</footer>
+</div>
+
+<script>
+const FONTS = [
+  { label: "Rock Salt", family: "'Rock Salt', cursive", size: 15, note: "<b>Chosen.</b> Felt-tip marker: loose, a little scratchy, unmistakably handwritten. Set at 15 px with tall rows (2.2×) for its loops. Also the inside-cover marker.", pick: true },
+  { label: "Caveat", family: "'Caveat', cursive", size: 23, note: "Previously chosen. Quick and slanted; reads like notes, but softer than a marker." },
+  { label: "Architect", family: "'Architects Daughter', cursive", size: 18, note: "Considered. Drafting-table capitals, steady baseline." },
+  { label: "Kalam", family: "'Kalam', cursive", size: 18, note: "Considered. Most legible for long entries; has a real bold." },
+  { label: "Patrick Hand", family: "'Patrick Hand', cursive", size: 20, note: "Considered. Neat, very even print." },
+  { label: "Gochi Hand", family: "'Gochi Hand', cursive", size: 20, note: "Considered. Marker-pen energy." },
+];
+const host = document.getElementById("fonts");
+const input = document.getElementById("sample-input");
+const samples = [];
+for (const f of FONTS) {
+  const card = document.createElement("article");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="card-head"><h3>${f.label}${f.pick ? '<span class="pick">chosen</span>' : ""}</h3><span class="meta">${f.meta || f.size + " px · OFL"}</span></div>
+    <p class="sample" style="font-family:${f.family};font-size:${f.size}px"></p>
+    <div class="card-foot">${f.note}</div>`;
+  host.appendChild(card);
+  samples.push(card.querySelector(".sample"));
+}
+const render = () => { for (const s of samples) s.textContent = input.value || " "; };
+input.addEventListener("input", render);
+render();
+</script>

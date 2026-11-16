@@ -1,0 +1,13 @@
+{
+  "name": "cairn-companion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler pages dev public --port 8788",
+    "test": "node --no-warnings test/companion.test.ts",
+    "deploy": "wrangler pages deploy public --project-name cairn-notes --branch main"
+  },
+  "devDependencies": {
+    "wrangler": "4.162.0"
+  }
+}
