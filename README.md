@@ -11,7 +11,7 @@
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.14.1** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.14.2** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 
@@ -23,7 +23,7 @@ Cairn is a Mac app, built for Apple silicon and Intel Macs.
 4. **Choose a folder for your vault.** An empty folder starts you off with a *First Cairn* notebook and a welcome note.
 
 > [!IMPORTANT]
-> **macOS will block Cairn the first time you open it.** That's expected for an app that isn't notarized by Apple yet. Allow it in **System Settings → Privacy & Security → Open Anyway**. If macOS instead says *"Cairn is damaged and can't be opened"*, run this once in Terminal, then open Cairn again:
+> **macOS will block Cairn the first time you open it.** That's expected for an app that isn't notarized by Apple yet. Allow it in **System Settings → Privacy & Security → Open Anyway**. If macOS instead says *"Cairn is damaged and can't be opened"* (versions before 0.14.2 could do that), run this once in Terminal, then open Cairn again:
 > ```sh
 > xattr -dr com.apple.quarantine /Applications/Cairn.app
 > ```
