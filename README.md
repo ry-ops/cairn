@@ -1,125 +1,138 @@
-# Cairn
+<p align="center">
+  <img src="docs/readme/hero.svg" width="880" alt="Cairn: notebook covers fan out on a kraft desk while a cairn stacks itself, stone by stone, on the front cover.">
+</p>
 
-> Notes as markers you leave behind.
+<p align="center">
+  <b>Notes as markers you leave behind.</b><br>
+  A markdown notebook app for the Mac, made like a pocket memo book.
+</p>
 
-**Cairn** (pronounced *KARN*, like *kern*: one syllable, the way *Karin* sounds said as one) is named for the stacks of stones that mark a trail.
+**Cairn** is pronounced ***KARN***, like *kern*: one syllable, the way *Karin* sounds said as one. It's named for the stacks of stones that mark a trail.
 
-Cairn is a markdown notebook app styled like a pocket memo book: kraft covers, edition colors, stickers and merit badges. It has an iA Writer-style editor at its core and keeps your notes as plain `.md` files you own.
+Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-Cairn is a Mac app, built for Apple silicon and Intel Macs.
+**Version 0.14.1** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 
-1. Download the disk image from the latest [release](../../releases/latest): `…_aarch64.dmg` for Apple silicon (M1 and later), `…_x64.dmg` for Intel. Open it and drag **Cairn** to Applications.
-2. The builds aren't signed or notarized yet, so macOS blocks the first launch. Either:
-   - open Cairn once, then go to **System Settings → Privacy & Security** and click **Open Anyway** next to the message about Cairn; or
-   - run `xattr -dr com.apple.quarantine /Applications/Cairn.app` in Terminal (this also fixes a "Cairn is damaged" message).
-3. Choose a folder for your vault. An empty folder starts a fresh shelf.
+Cairn is a Mac app, built for Apple silicon and Intel Macs.
 
-Or build it yourself: see *Develop* below.
+1. **Download** the disk image from the [latest release](https://github.com/ry-ops/cairn/releases/latest): `Cairn_…_aarch64.dmg` for Apple silicon (M1 and later), or `Cairn_…_x64.dmg` for Intel.
+2. **Open the disk image** and drag **Cairn** into **Applications**.
+3. **Allow Cairn in Privacy & Security.** Open Cairn once. macOS will block it, because Cairn isn't signed by an Apple developer account yet. Then go to **System Settings → Privacy & Security**, scroll down to the message about Cairn, and click **Open Anyway**. Confirm, and Cairn opens. You only do this once.
+4. **Choose a folder for your vault.** An empty folder starts you off with a *First Cairn* notebook and a welcome note.
 
-**Version 0.14.0.** See [CHANGELOG.md](CHANGELOG.md) and the Releases page.
+> [!IMPORTANT]
+> **macOS will block Cairn the first time you open it.** That's expected for an app that isn't notarized by Apple yet. Allow it in **System Settings → Privacy & Security → Open Anyway**. If macOS instead says *"Cairn is damaged and can't be opened"*, run this once in Terminal, then open Cairn again:
+> ```sh
+> xattr -dr com.apple.quarantine /Applications/Cairn.app
+> ```
 
-### New in 0.14.0
+Prefer to build it yourself? See [Develop](#develop).
 
-- Publish to the blog is gone: it was never meant to be part of Cairn.
+---
 
-### New in 0.13.1
+## The editor
 
-- Public releases come with two disk images, one for Apple silicon and one for Intel Macs.
+<img src="docs/readme/editor.svg" width="880" alt="The Cairn window: a shelf of covers, the notes in Trail Log, and a graph-paper page where a note types itself, then focus mode dims everything but the sentence being written.">
 
-### New in 0.13.0
+Three columns, like a writing app should have: your shelf of notebooks, the notes in the open one, and the page.
 
-- A new vault sets itself up: an empty folder starts with a *First Cairn* notebook and a welcome note, and Sync settings can create the vault's private GitHub repo for you.
+- **An iA Writer-style editor** (CodeMirror 6). Markdown stays visible but quiet, in a typewriter face.
+- **Focus mode** (⌘D) dims everything but the sentence or paragraph you're on. **Typewriter mode** (⇧⌘T) keeps your line in the middle of the page.
+- **Autosave**, word count and reading time in the status bar. ⌘\ hides the sidebars when you want just the page.
 
-### New in 0.12.0
+## Paper and type
 
-- Cairn is public, MIT-licensed, with a macOS disk image on every release.
-- The vault can live anywhere, iCloud Drive included.
+<img src="docs/readme/paper.svg" width="880" alt="Four pages side by side: graph, ruled, dot grid and blank, each with a line that writes itself. The ruled page switches to ochre ruling, and the blank page is written in the Rock Salt hand.">
 
-### New in 0.11.0
+- **Graph, ruled, dot grid or blank.** Each notebook has its own paper (the *Paper* chip under its title), and any page can change it with `paper:` in its frontmatter.
+- **Ruling ink** to match a cover: `ruling: "#c98a3a"` in `notebook.yml`.
+- **Two faces:** the typewriter face, or **Rock Salt**, a paint-marker hand. The inside front cover is always written in Rock Salt.
 
-- A notebook can sync with a GitHub repo of its own (⋯ → *Sync with a repo…*), such as a project's `docs/` folder, instead of your vault repo.
+## Your shelf
 
-### New in 0.10.0
+<img src="docs/readme/shelf.svg" width="880" alt="A row of notebook covers. One is picked up and dragged into a new place while the others make room, then the notebook menu opens with Change cover, Sync with a repo and Move to Trash.">
 
-- Drag notebooks on the shelf into your own order.
-- Cairns on the covers stack themselves, stone by stone, and the top stone teeters before it settles.
-- Delete a notebook: ⋯ beside New note, or right-click its cover → *Move to Trash…*. It goes to `<vault>/.trash/`, where you can restore it.
-- Paper and cover controls are now two chips under the notebook title, with a paper-swatch menu.
-- The foot of the shelf is a vault card: vault name, sync status, and a menu for syncing and switching vaults. Badges sit above it with a progress meter.
+- **Drag to reorder.** The others make room as you drag, and the shelf scrolls when you reach its edge. The order is saved in `shelf.yml`.
+- **The ⋯ menu** (or right-click a cover) changes the cover, links the notebook to a repo of its own, or moves it to the vault's `.trash/` folder, where you can restore it.
+- **All Notebooks** (⌘0): every cover in a grid, sorted by shelf order, number, A–Z or most recent, with a filter as you type.
 
-## Develop
+## Covers worth looking at
 
-Requires Rust (rustup), Node 24 and pnpm 10.
+<img src="docs/readme/covers.svg" width="880" alt="Twelve notebook covers arrive one after another and play their motion: a monoprint sun, a watercolor lake with a lighthouse, a pen sketch of a ridge drawing itself, a letterpress pine forest, and kraft covers where a cairn stacks itself.">
 
-```sh
-pnpm install
-pnpm tauri dev                     # desktop app, hot reload
-pnpm dev                           # browser preview with an in-memory sample vault
-pnpm test                          # Rust vault tests
-pnpm tauri build --bundles app     # src-tauri/target/release/bundle/macos/Cairn.app
-```
+Pocket notebooks are half about the covers, so Cairn takes them seriously.
 
-On first launch, choose your vault folder. An empty folder starts with a *First Cairn* notebook and a welcome note. Any folder works, iCloud Drive included: sync talks to GitHub through its API and never runs git in the vault (ADR-001, Amendment 1).
+- **Kraft covers** in seven edition colors, with an edition number and a title plate, two staples on the spine, and a cairn that stacks itself stone by stone. Its top stone nearly topples, rocks back and settles.
+- **Four printed styles**, each in several colorways:
+  - *Hunter's Field*: a gel-plate monoprint.
+  - *North Shore*: watercolor washes.
+  - *Ridge Sketch*: pen and ink.
+  - *Pine Press*: spot-color letterpress.
+- **Each cover moves once.** It plays its motion as it arrives (washes laid down, the pen drawing, ink landing in register, a sun rising), then holds still. Nothing moves while you write.
+- **Your own covers:** any SVG, saved to a library that every notebook can use.
+- **Original art from Claude:** the `cairn-cover` skill for [Claude Code](https://claude.com/claude-code) reads a notebook's notes for motifs, then draws and installs an original cover in one of the four styles.
 
-## Keys
+## Notebook mode
 
-| Key | Action |
-|---|---|
-| ⌘N | New note |
-| ⇧⌘N | New notebook |
-| ⌘D | Focus mode: off → sentence → paragraph |
-| ⇧⌘T | Typewriter scrolling |
-| ⌘\ | Hide or show the sidebars |
-| ⇧⌘F | Notebook mode: the notebook on your desktop (cover first, then the open spread) |
-| ⌥⌘← / ⌥⌘→ | Previous / next page (in notebook mode) |
-| Two-finger swipe ← / → | Next / previous page (in notebook mode) |
-| Esc | Leave notebook mode / All Notebooks |
-| ⌘0 | All Notebooks: every cover in a grid |
-| ⌘K | Search all notebooks |
-| ⌘S | Save now (notes also autosave) |
-| ⌘-click / ⌘↩ on a `[[link]]` | Follow it (starts the note if it doesn't exist yet) |
+<img src="docs/readme/notebook-mode.svg" width="880" alt="On the macOS desktop a North Shore notebook drops into place, its cover opens onto a kraft inside cover with the title and contents written in marker, and a two-finger swipe turns the page.">
 
-## Search
+**⇧⌘F puts the notebook on your desktop**: a borderless notebook, cover first, then the open spread.
 
-⌘K (or the magnifier on the shelf) searches every notebook as you type.
-- **Matching:** every word must appear, and the last word can be the start of one (`switchb` finds "switchbacks"). `"Quote"` words to match them as a phrase. Case and accents don't matter.
-- **Results:** title matches rank first, and each result shows a snippet around the match. Use ↑/↓ and Enter, or click.
-- **The index:** SQLite FTS5, in memory and never in the vault, so it has nothing to sync or back up. Before each search it re-reads only the notes whose files changed, so edits from sync, iCloud or another editor show up at once. Notes that iCloud has offloaded are searched once they download.
+- **The inside cover is written by hand:** the edition number, the title, the date it was started, and a table of contents.
+- **Turn pages** with a two-finger swipe or ⌥⌘← / ⌥⌘→. Esc puts it away.
 
-## Links between notes
+## Links and search
 
-- **`[[Note title]]`** links to a note by its title (frontmatter `title:`, else its first `# Heading`, else its file name), ignoring case, accents and punctuation. A note in the same notebook wins; otherwise Cairn looks across the vault.
-- **`[[Trail Log/Ridge loop]]`** names the notebook, by title or folder name. **`[[Title|shown text]]`** and **`[[Title#Heading]]`** also work. Links inside code are ignored.
-- **Typing `[[`** suggests note titles, this notebook's first. A link to a note that doesn't exist yet is dashed; ⌘-click it to start that note.
-- **Linked from N** in the status bar lists the notes that link to this one, each with the line the link sits on. Click one to go there.
-- Links stay plain text in the `.md` files, the same `[[…]]` that Obsidian and other tools read.
+<img src="docs/readme/links-search.svg" width="880" alt="Typing [[Spli suggests Split Rock and completes the link, a Linked from 2 panel lists the notes that link here, and a search for switchb finds switchbacks in three notes across two notebooks.">
 
-## Pages, paper and fonts
+- **`[[Wikilinks]]`** by title, with autocomplete as you type `[[`.
+  - The `[[Notebook/Title]]`, `[[Title|alias]]` and `[[Title#Heading]]` forms work too.
+  - ⌘-click follows a link. A link to a note that doesn't exist yet starts that note.
+- **Backlinks:** *Linked from N* lists every note that points here, with the line it's on.
+- **⌘K searches every notebook** as you type. It handles prefixes (`switchb` finds *switchbacks*) and phrases, and ranks title matches first. The index is SQLite FTS5, kept in memory, so it never touches your vault.
+- **The links stay plain text**: the same `[[…]]` that Obsidian and other tools read.
 
-- **Paper:** each notebook has a default (the *Paper* chip under its title, or `paper:` in `notebook.yml`); any page can override it with `paper: graph|ruled|dot|blank` in its frontmatter (status bar → *page*).
-- **Ruling ink:** `ruling: "#c98a3a"` in `notebook.yml` colors the lines of graph, ruled and dot paper.
-- **Fonts:** Typewriter (default) or Handwritten, which is **Rock Salt** (Apache-2.0, bundled via Fontsource). Switch in the status bar. Rock Salt is Cairn's only hand: also the inside front cover, where the notebook's details and contents are written straight onto the board.
+## Stickers and merit badges
 
-## Sync
+<img src="docs/readme/stickers-badges.svg" width="880" alt="Die-cut stickers fly from a sheet of fifteen onto a notebook page, the Trailhead merit badge stitches itself in, and a sash shows all twelve embroidered patches, some earned and some still faded.">
 
-Click the **vault card** at the foot of the shelf: it shows the vault's name and sync status, and its menu has *Sync now*, *Sync settings…* and *Open another vault…*.
-- **GitHub:** set the repository (`owner/name`) and branch, and sign in with your GitHub CLI login or a token saved in the Keychain. If the repo doesn't exist yet, *Preview* offers to create it as a private repo (with a README) in your account or an organization of yours; that needs the GitHub CLI login or a token allowed to create repositories. The first sync shows a preview and waits for your OK. After that, Cairn syncs on launch, shortly after you stop typing, every 5 minutes, and when the window hides.
-- **What syncs:** notes and `notebook.yml` only, as signed commits through the GitHub API. No git runs locally, so the vault can live in iCloud Drive.
-- **A notebook's own repo:** ⋯ → *Sync with a repo…* links a notebook to `owner/name`, optionally a folder such as `docs` and a branch. Its top-level `.md` files become the notebook's notes, and subfolders are ignored.
-  - Preview the first sync, then link. Each sync then does the vault repo, then every linked notebook.
-  - The notebook's `notebook.yml` stays in the vault repo, and its notes leave it (the history keeps them). *Unlink* brings them back.
-  - Commits go straight to the branch, so a branch protected by "require a pull request" will refuse them. Pick another branch for those repos.
-  - The companion site reads only the vault repo, so it doesn't see a linked notebook's notes.
-- **Conflicts:** a note edited on both sides keeps yours and saves theirs as `<name>.conflict-<stamp>.md`.
-- **iCloud:** a vault in iCloud Drive is already backed up. For a vault elsewhere, turn on the backup copy in `iCloud Drive/Cairn Backup`.
+- **A sheet of die-cut stickers** for pages and covers: cairn, compass, pine, peaks, moon, sun, lightning, lake wave, canoe, tent, campfire, camp mug, trail blaze, gold star and *field tested*.
+  - Each one lands at a slight tilt, and you peel it off by dragging it away.
+  - Add your own SVGs, and Cairn gives them the white die-cut edge.
+- **Twelve merit badges**, embroidered patches earned from what's in your vault:
+  - the first, tenth and fiftieth note, and five notebooks;
+  - ten links, and a link from one notebook into another;
+  - a seven-day streak, all four seasons and ten thousand words;
+  - five stickers, an original cover, and your first sync.
 
-See ADR-001, Amendment 1, for the details.
+  A new one stitches itself in at the bottom of the window.
 
-## Cairn for Claude (MCP)
+## A vault that sets itself up
 
-`cairn-mcp` is a local MCP server that lets Claude search, read and add to your notes. It uses the same vault as the app (read from Cairn's config, or `--vault <path>`, or `CAIRN_VAULT`).
+<img src="docs/readme/setup.svg" width="880" alt="Choosing an empty folder opens a First Cairn notebook with a welcome note. In the Sync sheet, typing you/cairn-vault and pressing Preview offers to create the repo, and Cairn creates it as a private repository.">
+
+- **Pick an empty folder**, and your first notebook is waiting with a note on how everything works.
+- **No GitHub repo yet?** Type a name in Sync settings and press *Preview*. Cairn offers to create it as a **private repo** in your account, or in an organization of yours, then shows exactly what the first sync will do.
+
+## Sync that signs its commits
+
+<img src="docs/readme/sync.svg" width="880" alt="Notes travel from the Mac's vault folder to a private GitHub repo, where each sync appears as a verified commit; another note comes back down, and a notebook syncs with a project's docs folder.">
+
+- **GitHub is the sync, through its API.** No git runs on your Mac, so the vault can live anywhere, iCloud Drive included.
+- **Every commit is signed by GitHub** and shows as *Verified*.
+- **When it syncs:** on launch, a moment after you stop typing, every 5 minutes, and when the window hides.
+- **The first sync is always previewed**, and it waits for your OK.
+- **Nothing is merged silently.** When a note changed on both sides, yours is kept and theirs is saved beside it as a `.conflict` copy. A note deleted on GitHub goes to the vault's `.trash/` folder, not into thin air.
+- **A notebook can have a repo of its own**, such as a project's `docs/` folder: ⋯ → *Sync with a repo…*. Each note lives in exactly one repo.
+- **iCloud Drive:** a vault in iCloud Drive is backed up and on your other Macs. A vault elsewhere can keep a backup copy there.
+
+## Claude can read it
+
+<img src="docs/readme/mcp.svg" width="880" alt="In a terminal, Claude answers a question about the ridge loop with cairn_search, then adds today's trail conditions with cairn_append, and the two new lines appear in the note in Cairn.">
+
+`cairn-mcp` is a local [MCP](https://modelcontextprotocol.io) server that lets Claude search, read and add to your notes. **It only adds; it can't edit or delete anything.**
 
 ```sh
 cd src-tauri && cargo build --release --bin cairn-mcp
@@ -135,48 +148,91 @@ claude mcp add cairn -- "$PWD/target/release/cairn-mcp"
 | `cairn_create_note` | Start a note (dated today, title as heading, optional body) |
 | `cairn_append` | Add markdown to the end of a note |
 
-Writing only adds: Claude can't overwrite or delete anything. When you come back to Cairn it re-reads the open note, so text Claude added appears (unless you have unsaved typing).
+It uses the same vault as the app (from Cairn's settings, `--vault <path>` or `CAIRN_VAULT`). When you come back to Cairn, the note shows what Claude added.
 
-## Companion site
+## The companion
 
-`companion/` is a small web app for your own Cloudflare account: read, search and jot notes from any browser, phone included, behind Cloudflare Access. It reads your GitHub vault repo, so it shows what has synced. See [companion/README.md](companion/README.md) to deploy it.
+<img src="docs/readme/companion.svg" width="880" alt="On a phone, the companion lists notebooks and saves a quick capture; it becomes a signed commit in the vault repo, and Cairn picks it up as a new note on its next sync.">
 
-## Covers, stickers and badges
+`companion/` is a small web app you deploy to **your own Cloudflare account**. With it you can read, search and jot notes from any browser, phone included.
 
-- **Cover picker** (the *Cover* chip under the notebook title): built-in covers (Kraft plus four styles, each in several colorways), your own covers, the title-plate color, and *Make an original*.
-- **Original art:** ask Claude Code in this repo to use the **`cairn-cover`** skill (`.claude/skills/cairn-cover/`). It draws a `cover.svg` in hand-drawn, watercolor, letterpress or monoprint style (optionally animated) and sets it in `notebook.yml`. The built-in presets in `src/cover-presets/` are its worked examples.
-- **Motion:** a cover can carry a one-shot animation that plays as covers arrive in All Notebooks and as the notebook arrives on the desktop and in the cover picker's preview each time you choose one. The built-in covers each have one: washes laid down, the pen drawing, ink passes landing in register, the moon rising. On Kraft covers the cairn is built stone by stone, and its top stone nearly topples before it settles; Ridge Sketch's inked cairn teeters the same way. The shelf and the picker's thumbnails always show the still cover, and nothing moves while you write. Every notebook also drops onto the desktop and settles on its staples.
-- **Library:** save a notebook's custom cover to `<vault>/covers/` from the picker; any notebook can then use it (`cover: lib:<name>`).
-- **All Notebooks** (⌘0, View → All Notebooks, or the grid icon on the shelf): every notebook's cover in a grid, with its note count and the date last written. Sort by shelf order, number, A–Z or recent, type to find, click to open, Esc to go back. Covers come in one after another, and animated ones play as they arrive.
+- **Locked down:** Cloudflare Access guards it at the edge, and every function checks the Access token too.
+- **Quick capture** saves a note as a signed commit, and Cairn picks it up on its next sync.
 
-- **Stickers** (*stickers* in the status bar): a sheet of die-cut vinyl stickers (cairn, compass, pine, peaks, moon, sun, lightning, lake wave, canoe, tent, campfire, camp mug, trail blaze, gold star, *field tested*). Click one to stick it on **this page** or **the cover**, drag it where you want it, drag it off the edge (or focus it and press Delete) to peel it off. Each lands at a slight tilt. Page stickers are saved in the note's frontmatter (`stickers:`, one JSON line), cover stickers in `notebook.yml`, never in the note body. Add your own SVGs to `<vault>/stickers/` (shown as `my:<name>`); the white die-cut edge is added for you.
+See [companion/README.md](companion/README.md) to set it up.
 
-- **Merit badges** (*Badges* above the vault card, with a progress meter): twelve embroidered patches earned from what's in the vault. They cover your first, tenth and fiftieth note, five notebooks, ten links, a link between notebooks, a seven-day streak, all four seasons, ten thousand words, five stickers, an original cover and your first GitHub sync. A new one stitches itself in at the bottom of the window. That and the covers are the only motion in Cairn. Earned dates are kept in `<vault>/badges.yml`, and a badge stays earned even if notes are later trashed.
+---
 
-- **Notebook menu** (⋯ beside New note, or right-click a cover): *Change cover…* and *Move to Trash…*. A trashed notebook's folder moves to `<vault>/.trash/<time>-<id>/`; move it back into `notebooks/` to restore it. With GitHub sync on, the next sync deletes it from the repository (the history keeps it).
-- **Shelf order:** drag a cover up or down the shelf to move it; the others make room, and the shelf scrolls when you reach its edge. The order is saved in `<vault>/shelf.yml` (on this Mac and in iCloud; it isn't part of GitHub sync). Notebooks it doesn't list follow in number order.
+## Keys
 
-`notebook.yml` keys: `cover` (`kraft-classic` · `<preset>` · `<preset>/<colorway>` · `cover.svg` · `lib:<name>`), `color` (title plate), `ruling`, `paper`, `stickers`.
+| Key | Action |
+|---|---|
+| ⌘N / ⇧⌘N | New note / new notebook |
+| ⌘D | Focus mode: off → sentence → paragraph |
+| ⇧⌘T | Typewriter scrolling |
+| ⌘\ | Hide or show the sidebars |
+| ⇧⌘F | Notebook mode: the notebook on your desktop |
+| ⌥⌘← / ⌥⌘→, two-finger swipe | Turn the page (in notebook mode) |
+| ⌘0 | All Notebooks |
+| ⌘K | Search every notebook |
+| ⌘S | Save now (notes also autosave) |
+| ⌘-click / ⌘↩ on a `[[link]]` | Follow it, or start the note it names |
+| Esc | Leave notebook mode or All Notebooks |
 
-See [the design guide](docs/design/cairn-specimen.html) for the type, cover styles and colorways.
+## Your files
+
+```
+Cairn/                         your vault: any folder
+  shelf.yml                    the order of the shelf
+  badges.yml                   merit badges earned, with dates
+  covers/                      your cover library
+  stickers/                    your own stickers
+  notebooks/
+    0001-first-cairn/
+      notebook.yml             title, color, paper, ruling, cover, stickers
+      cover.svg                an original cover (optional)
+      2026-11-16-welcome.md    one note: frontmatter, then markdown
+```
+
+- **`notebook.yml` keys:** `cover`, `color` (the title plate), `paper`, `ruling` and `stickers`, plus `repo`, `repo_path` and `repo_branch` for a notebook with its own repo.
+  - `cover` can be `kraft-classic`, a preset, `<preset>/<colorway>`, `cover.svg` or `lib:<name>`.
+- **Note frontmatter:** `title`, `tags`, `stickers` and `paper`.
+- **Derived data stays out of the vault:** the search index and the sync state live in the app's own data folder, so there's nothing extra to sync or back up.
+
+## Develop
+
+Requires Rust (rustup), Node 24 and pnpm 10.
+
+```sh
+pnpm install
+pnpm tauri dev                     # desktop app, hot reload
+pnpm dev                           # browser preview with an in-memory sample vault
+pnpm test                          # link tests and Rust tests
+pnpm tauri build --bundles app     # src-tauri/target/release/bundle/macos/Cairn.app
+python3 docs/readme/build.py       # redraw this README's animations
+```
+
+```
+src/                    React + CodeMirror 6 frontend
+  editor/               focus mode, typewriter mode, markdown theme
+  components/           covers, shelf, notebook mode, sheets, stickers, badges
+  cover-presets/        the built-in covers and their colorways
+  store.ts              Tauri IPC, or an in-memory vault for the browser
+src-tauri/src/
+  vault.rs              the vault on disk (path-safe, atomic writes, .trash)
+  sync.rs               GitHub sync: three-way plan, signed commits
+  search.rs             SQLite FTS5 index
+  bin/cairn-mcp.rs      the MCP server
+companion/              the Cloudflare Pages companion
+docs/design/            the design guide: type, covers, colorways
+```
+
+If you have iA Writer's open-source fonts installed (iA Writer Duo or Duospace), the editor uses them automatically. See [the design guide](docs/design/cairn-specimen.html) for the type, the cover styles and the colorways.
 
 ## Releases
 
-Each version on `main` is a release: the Release workflow tags `v<version>`, publishes the notes from [CHANGELOG.md](CHANGELOG.md), and attaches macOS disk images for Apple silicon and Intel.
-
-## Layout
-
-```
-src/                  React + CodeMirror 6 frontend
-  editor/             focus mode, typewriter mode, markdown theme
-  components/Cover    SVG notebook covers (kraft grain, staples, cairn mark)
-  components/ShelfParts  sortable shelf, paper + cover chips, vault card
-  store.ts            VaultStore: Tauri IPC, or in-memory for the browser
-src-tauri/src/vault.rs  vault filesystem layer (path-safe, atomic writes, .trash)
-```
-
-If you have iA Writer's open-source fonts installed (iA Writer Duo/Duospace), the editor uses them automatically.
+Each version on `main` is a release: the Release workflow tags `v<version>`, publishes the notes from [CHANGELOG.md](CHANGELOG.md), and attaches disk images for Apple silicon and Intel Macs.
 
 ## License
 
-[MIT](LICENSE).
+[MIT](LICENSE). Rock Salt is licensed under Apache-2.0 and bundled through Fontsource.

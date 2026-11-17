@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" role="img" aria-label="Cairn: notes as markers you leave behind. Notebook covers arrive and a cairn stacks itself."><title>Cairn: notes as markers you leave behind. Notebook covers arrive and a cairn stacks itself.</title><defs><filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0" result="g"/><feComponentTransfer in="g" result="a"><feFuncA type="table" tableValues="0 0.22"/></feComponentTransfer><feComposite in="a" in2="SourceGraphic" operator="in" result="speck"/><feBlend in="SourceGraphic" in2="speck" mode="multiply"/></filter><filter id="lift" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur in="SourceAlpha" stdDeviation="5"/><feOffset dy="5" result="b"/><feFlood flood-color="#2a1e12" flood-opacity="0.28"/><feComposite in2="b" operator="in"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="diecut" x="-25%" y="-25%" width="150%" height="150%"><feMorphology in="SourceAlpha" operator="dilate" radius="3" result="edge"/><feFlood flood-color="#fbf8f1"/><feComposite in2="edge" operator="in" result="margin"/><feGaussianBlur in="edge" stdDeviation="1.6" result="blur"/><feOffset in="blur" dx="0.8" dy="1.6" result="drop"/><feFlood flood-color="#000" flood-opacity="0.32"/><feComposite in2="drop" operator="in" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="margin"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect x="1" y="1" width="878" height="378" rx="18" fill="#e7dcc8" stroke="rgba(42,38,34,0.14)"/><g opacity="0"><animateTransform attributeName="transform" type="translate" values="0 40;0 40;0 0;0 0;0 30" keyTimes="0;0.02;0.08;0.94;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.02;0.055;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><g transform="rotate(-14 145.0 179.85714285714286)"><g filter="url(#lift)"><rect x="70" y="62" width="150" height="235.714" rx="5.357" fill="#000" opacity="0.001"/></g><svg x="70" y="62" width="150" height="235.714" viewBox="0 0 140 220" overflow="visible"><clipPath id="cc2"><rect width="140" height="220" rx="5"/></clipPath><g clip-path="url(#cc2)"><svg width="140" height="220" viewBox="0 0 350 550" preserveAspectRatio="xMidYMid slice">
+  
+  <defs>
+    <clipPath id="c1page"><rect width="350" height="550"/></clipPath>
+    
+    <filter id="c1wash" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="1.4"/>
+    </filter>
+    
+    <filter id="c1rim" x="-15%" y="-15%" width="130%" height="130%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="0.9"/>
+    </filter>
+    
+    <filter id="c1granulate" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="2" seed="13" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.5 0 0 0 1.6" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in"/>
+    </filter>
+    
+    <filter id="c1coldpress">
+      <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="2" seed="3" result="n"/>
+      <feDiffuseLighting in="n" lighting-color="#ffffff" surfaceScale="1.8">
+        <feDistantLight azimuth="225" elevation="55"/>
+      </feDiffuseLighting>
+    </filter>
+    <linearGradient id="c1sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7f9fb8"/>
+      <stop offset="0.55" stop-color="#c9c9c0"/>
+      <stop offset="1" stop-color="#ecd3ad"/>
+    </linearGradient>
+    <linearGradient id="c1lake" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5d8299"/>
+      <stop offset="1" stop-color="#28485e"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#c1page)">
+
+  <rect width="350" height="550" fill="#f5f0e4"/>
+
+  <g style="mix-blend-mode:multiply">
+    
+    <rect x="-20" y="-20" width="390" height="350" fill="url(#c1sky)" opacity="0.75" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0.75;0.75;0.75" keyTimes="0;0.05;0.133;0.31;1" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></rect>
+    
+    <circle cx="256" cy="128" r="30" fill="#f0b765" opacity="0.65" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.65;0.65;0.65" keyTimes="0;0.05;0.097;0.18;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/><animate attributeName="cy" calcMode="spline" values="150;150;150;128;128;128" keyTimes="0;0.05;0.097;0.211;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></circle>
+
+    
+    <path d="M-20 250 C 10 232, 40 224, 70 236 C 100 248, 120 218, 150 220 C 182 222, 200 242, 230 238 C 258 234, 276 212, 300 214 C 326 216, 350 230, 380 232 L380 330 L-20 330 Z" fill="#8aa1ad" opacity="0.55" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.55;0.55;0.55" keyTimes="0;0.05;0.128;0.193;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></path>
+    <path d="M-20 250 C 10 232, 40 224, 70 236 C 100 248, 120 218, 150 220 C 182 222, 200 242, 230 238 C 258 234, 276 212, 300 214 C 326 216, 350 230, 380 232" fill="none" stroke="#6c8795" stroke-width="2.4" opacity="0.4" filter="url(#c1rim)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.4;0.4;0.4" keyTimes="0;0.05;0.149;0.206;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></path>
+    <path d="M-20 286 C 20 266, 60 258, 96 272 C 130 284, 160 258, 196 262 C 236 266, 262 286, 300 280 C 330 276, 352 266, 380 268 L380 330 L-20 330 Z" fill="#567278" opacity="0.6" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.6;0.6;0.6" keyTimes="0;0.05;0.159;0.222;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></path>
+    <path d="M-20 286 C 20 266, 60 258, 96 272 C 130 284, 160 258, 196 262 C 236 266, 262 286, 300 280 C 330 276, 352 266, 380 268" fill="none" stroke="#3f585e" stroke-width="2.4" opacity="0.45" filter="url(#c1rim)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.45;0.45;0.45" keyTimes="0;0.05;0.18;0.232;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></path>
+
+    
+    <rect x="-20" y="312" width="390" height="260" fill="url(#c1lake)" opacity="0.78" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.78;0.78;0.78" keyTimes="0;0.05;0.18;0.253;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></rect>
+    <rect x="-20" y="312" width="390" height="260" fill="#1f3a4c" opacity="0.35" filter="url(#c1granulate)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.35;0.35;0.35" keyTimes="0;0.05;0.206;0.271;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></rect>
+
+    
+    <path d="M-20 300 L40 292 Q 78 290 96 312 L110 340 Q 70 352 -20 356 Z" fill="#2f4446" opacity="0.85" filter="url(#c1wash)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.85;0.85;0.85" keyTimes="0;0.05;0.222;0.274;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></path>
+    <rect x="58" y="262" width="11" height="32" fill="#efe9dc" opacity="0.95"/>
+    <path d="M56 262 L71 262 L63.5 252 Z" fill="#9c3b2b" opacity="0.9"/>
+    <circle cx="63.5" cy="268" r="2.4" fill="#f3c46e"/>
+  </g>
+
+  
+  <g stroke="#e7eef0" stroke-linecap="round" opacity="0.55" filter="url(#c1rim)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.55;0.55" keyTimes="0;0.05;0.258;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    <path d="M150 334 h70" stroke-width="2.4"/>
+    <path d="M200 346 h46" stroke-width="2"/>
+    <path d="M226 357 h34" stroke-width="1.6"/>
+    <path d="M120 520 h60" stroke-width="2"/>
+  </g>
+
+  
+  <g fill="none" stroke="#3b4a52" stroke-width="1.6" stroke-linecap="round"><animate attributeName="opacity" calcMode="spline" values="0;0;0;1;1;1" keyTimes="0;0.05;0.211;0.258;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" calcMode="spline" values="-26 6;-26 6;-26 6;0 0;0 0" keyTimes="0;0.05;0.211;0.31;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    <path d="M150 150 q 6 -6 11 0 q 5 -6 11 0"/>
+    <path d="M182 168 q 4 -4 8 0 q 4 -4 8 0"/>
+  </g>
+
+  <rect width="350" height="550" filter="url(#c1coldpress)" opacity="0.32" style="mix-blend-mode:multiply"/>
+  </g>
+</svg><rect width="7" height="220" fill="#000" opacity="0.1"/><rect x="2.2" y="52" width="2.2" height="18" rx="1" fill="#b9bcc0"/><rect x="2.2" y="150" width="2.2" height="18" rx="1" fill="#b9bcc0"/></g><rect x="13" y="16" width="68" height="14" rx="2" fill="#2f4f6b" opacity="0.92"/><text x="18" y="26" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="9" font-weight="700" fill="#efe6d2" text-anchor="start" letter-spacing="2.4">No. 0004</text><rect x="16" y="150" width="108" height="46" fill="#2f4f6b" fill-opacity="0.92" stroke="#efe6d2" stroke-width="1.2"/><text x="70" y="177" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="11" font-weight="700" fill="#efe6d2" text-anchor="middle" letter-spacing="1.4">NORTH SHORE</text></svg></g></g><g opacity="0"><animateTransform attributeName="transform" type="translate" values="0 40;0 40;0 0;0 0;0 30" keyTimes="0;0.045;0.105;0.94;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.045;0.08;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><g transform="rotate(-6 203.0 179.85714285714286)"><g filter="url(#lift)"><rect x="128" y="62" width="150" height="235.714" rx="5.357" fill="#000" opacity="0.001"/></g><svg x="128" y="62" width="150" height="235.714" viewBox="0 0 140 220" overflow="visible"><clipPath id="cc4"><rect width="140" height="220" rx="5"/></clipPath><g clip-path="url(#cc4)"><svg width="140" height="220" viewBox="0 0 350 550" preserveAspectRatio="xMidYMid slice">
+  
+  <defs>
+    <clipPath id="c3page"><rect width="350" height="550"/></clipPath>
+    
+    <filter id="c3press" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.95" numOctaves="1" seed="9" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -7 0 0 0 5.6" result="salt"/>
+      <feComposite in="SourceGraphic" in2="salt" operator="in" result="ink"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.1" result="b"/>
+      <feOffset in="b" dx="1.1" dy="1.3" result="o"/>
+      <feComposite in="SourceAlpha" in2="o" operator="out" result="rim"/>
+      <feFlood flood-color="#000" flood-opacity="0.32"/>
+      <feComposite in2="rim" operator="in" result="bite"/>
+      <feMerge><feMergeNode in="ink"/><feMergeNode in="bite"/></feMerge>
+    </filter>
+    
+    <filter id="c3blind" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="b"/>
+      <feOffset in="b" dx="0.9" dy="1.1" result="o"/>
+      <feComposite in="SourceAlpha" in2="o" operator="out" result="shadow"/>
+      <feFlood flood-color="#000" flood-opacity="0.22"/>
+      <feComposite in2="shadow" operator="in" result="s"/>
+      <feOffset in="b" dx="-0.8" dy="-0.9" result="o2"/>
+      <feComposite in="SourceAlpha" in2="o2" operator="out" result="hl"/>
+      <feFlood flood-color="#fff" flood-opacity="0.55"/>
+      <feComposite in2="hl" operator="in" result="h"/>
+      <feMerge><feMergeNode in="s"/><feMergeNode in="h"/></feMerge>
+    </filter>
+    
+    <filter id="c3fibre">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.6" numOctaves="2" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.12"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <g clip-path="url(#c3page)">
+
+  
+  <rect width="350" height="550" fill="#f2ecdf"/>
+  <rect width="350" height="550" filter="url(#c3fibre)" style="mix-blend-mode:multiply"/>
+
+  
+  <g fill="none" stroke="#f2ecdf" filter="url(#c3blind)"><animate attributeName="opacity" calcMode="spline" values="0;0;0;1;1" keyTimes="0;0.075;0.243;0.315;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    <circle cx="175" cy="196" r="112" stroke-width="2"/>
+    <circle cx="175" cy="196" r="126" stroke-width="2"/>
+    <circle cx="175" cy="196" r="140" stroke-width="2"/>
+  </g>
+
+  
+  <g transform="translate(1.6 -1.2)" fill="#b4482b" filter="url(#c3press)"><animate attributeName="opacity" calcMode="spline" values="0;0;1;1;1" keyTimes="0;0.075;0.147;0.315;1" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" calcMode="spline" values="7 -6;7 -6;1.6 -1.2;1.6 -1.2;1.6 -1.2" keyTimes="0;0.075;0.176;0.315;1" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    <circle cx="175" cy="196" r="94"/>
+    <g>
+      <path d="M60 520 l8 -12 l8 12 Z M92 520 l8 -12 l8 12 Z M124 520 l8 -12 l8 12 Z M156 520 l8 -12 l8 12 Z M188 520 l8 -12 l8 12 Z M220 520 l8 -12 l8 12 Z M252 520 l8 -12 l8 12 Z M284 520 l8 -12 l8 12 Z"/>
+    </g>
+    <circle cx="72" cy="92" r="2.6"/>
+    <circle cx="292" cy="70" r="2"/>
+    <circle cx="300" cy="132" r="2.8"/>
+    <circle cx="52" cy="160" r="1.8"/>
+  </g>
+
+  
+  <g fill="#1f3a5a" filter="url(#c3press)" style="mix-blend-mode:multiply"><animate attributeName="opacity" calcMode="spline" values="0;0;0;1;1;1" keyTimes="0;0.075;0.161;0.224;0.315;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" calcMode="spline" values="-5 4;-5 4;-5 4;0 0;0 0;0 0" keyTimes="0;0.075;0.161;0.262;0.315;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    
+    <path fill-rule="evenodd" d="M18 18 H332 V532 H18 Z M22 22 V528 H328 V22 Z"/>
+    <path fill-rule="evenodd" d="M28 28 H322 V522 H28 Z M29.5 29.5 V520.5 H320.5 V29.5 Z"/>
+    
+    <path d="
+      M40 340 L58 270 L76 340 Z
+      M64 340 L86 248 L108 340 Z
+      M98 340 L114 288 L130 340 Z
+      M122 340 L146 236 L170 340 Z
+      M160 340 L178 280 L196 340 Z
+      M186 340 L212 226 L238 340 Z
+      M230 340 L248 276 L266 340 Z
+      M254 340 L276 244 L298 340 Z
+      M288 340 L304 286 L320 340 Z"/>
+    <rect x="28" y="338" width="294" height="16"/>
+  </g>
+
+  
+  <g fill="#f2ecdf"><animate attributeName="opacity" calcMode="spline" values="0;0;0;1;1;1" keyTimes="0;0.075;0.161;0.224;0.315;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/>
+    <rect x="84" y="342" width="4" height="8"/>
+    <rect x="144" y="342" width="4" height="8"/>
+    <rect x="210" y="342" width="4" height="8"/>
+    <rect x="274" y="342" width="4" height="8"/>
+  </g>
+  </g>
+</svg><rect width="7" height="220" fill="#000" opacity="0.1"/><rect x="2.2" y="52" width="2.2" height="18" rx="1" fill="#b9bcc0"/><rect x="2.2" y="150" width="2.2" height="18" rx="1" fill="#b9bcc0"/></g><rect x="13" y="16" width="68" height="14" rx="2" fill="#e9e2d0" opacity="0.92"/><text x="18" y="26" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="9" font-weight="700" fill="#2b2a26" text-anchor="start" letter-spacing="2.4">No. 0007</text><rect x="16" y="150" width="108" height="46" fill="#e9e2d0" fill-opacity="0.92" stroke="#2b2a26" stroke-width="1.2"/><text x="70" y="177" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="11" font-weight="700" fill="#2b2a26" text-anchor="middle" letter-spacing="1.4">PINE PRESS</text></svg></g></g><g opacity="0"><animateTransform attributeName="transform" type="translate" values="0 40;0 40;0 0;0 0;0 30" keyTimes="0;0.07;0.13;0.94;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.07;0.105;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><g transform="rotate(4 261.0 179.85714285714286)"><g filter="url(#lift)"><rect x="186" y="62" width="150" height="235.714" rx="5.357" fill="#000" opacity="0.001"/></g><svg x="186" y="62" width="150" height="235.714" viewBox="0 0 140 220" overflow="visible"><clipPath id="cc6"><rect width="140" height="220" rx="5"/></clipPath><g clip-path="url(#cc6)"><svg width="140" height="220" viewBox="0 0 350 550" preserveAspectRatio="xMidYMid slice">
+  
+  <defs>
+    <clipPath id="c5page"><rect width="350" height="550"/></clipPath>
+    
+    <filter id="c5gel" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.006 0.11" numOctaves="3" seed="11" result="streak"/>
+      <feColorMatrix in="streak" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -4 0 0 0 3.3" result="mask"/>
+      <feComposite in="SourceGraphic" in2="mask" operator="in" result="inked"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="2" seed="4" result="warp"/>
+      <feDisplacementMap in="inked" in2="warp" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    
+    <filter id="c5torn" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    
+    <filter id="c5ghost" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.3" numOctaves="2" seed="21" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -3 0 0 0 1.9" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in"/>
+    </filter>
+    <filter id="c5grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="table" tableValues="0 0.22"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <g clip-path="url(#c5page)">
+
+  
+  <rect width="350" height="550" fill="#efe6d4"/>
+
+  
+  <rect x="26" y="58" width="288" height="250" fill="#ead19f" filter="url(#c5torn)" transform="rotate(-2.5 170 183)"/>
+
+  
+  <g style="mix-blend-mode:multiply">
+    <rect x="0" y="0" width="350" height="300" fill="#d38c6b" opacity="0.55" filter="url(#c5gel)"><animate attributeName="opacity" calcMode="spline" values="0;0;0.55;0.55;0.55" keyTimes="0;0.1;0.178;0.36;1" keySplines="0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></rect>
+  </g>
+
+  
+  <g style="mix-blend-mode:multiply">
+    <circle cx="196" cy="176" r="74" fill="#b4532a" opacity="0.35" filter="url(#c5ghost)"><animate attributeName="cy" calcMode="spline" values="262;262;262;176;176;176" keyTimes="0;0.1;0.131;0.334;0.36;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/><animate attributeName="opacity" calcMode="spline" values="0;0;0;0.35;0.35;0.35" keyTimes="0;0.1;0.131;0.23;0.36;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></circle>
+    <circle cx="208" cy="164" r="68" fill="#e3a033" filter="url(#c5gel)"><animate attributeName="cy" calcMode="spline" values="250;250;250;164;164;164" keyTimes="0;0.1;0.121;0.308;0.36;1" keySplines="0 0 1 1;0 0 1 1;0.25 0.6 0.3 1;0 0 1 1;0 0 1 1" dur="10s" repeatCount="indefinite"/></circle>
+  </g>
+
+  
+  <g style="mix-blend-mode:multiply">
+    <path d="M0 300 C 90 288, 250 292, 350 302 L350 550 L0 550 Z" fill="#a24a2a" filter="url(#c5gel)"/>
+    <g stroke="#6b2b18" stroke-width="7" stroke-linecap="round" opacity="0.55" filter="url(#c5torn)" fill="none">
+      <path d="M175 304 L-40 550"/>
+      <path d="M175 304 L40 550"/>
+      <path d="M175 304 L120 550"/>
+      <path d="M175 304 L200 550"/>
+      <path d="M175 304 L280 550"/>
+      <path d="M175 304 L370 550"/>
+      <path d="M175 304 L460 520"/>
+      <path d="M175 304 L-120 500"/>
+    </g>
+  </g>
+
+  
+  <g fill="#2b1d16" filter="url(#c5torn)">
+    <rect x="70" y="252" width="6" height="48"/>
+    <circle cx="73" cy="246" r="20"/>
+    <circle cx="58" cy="258" r="13"/>
+    <circle cx="90" cy="256" r="14"/>
+    <circle cx="74" cy="228" r="13"/>
+    <g opacity="0.85">
+      <rect x="226" y="286" width="3" height="16"/>
+      <rect x="252" y="287" width="3" height="16"/>
+      <rect x="278" y="288" width="3" height="16"/>
+      <rect x="304" y="289" width="3" height="16"/>
+      <rect x="330" y="290" width="3" height="16"/>
+      <path d="M220 292 L350 296 L350 298 L220 294 Z"/>
+    </g>
+  </g>
+
+  
+  <rect x="12" y="12" width="326" height="526" rx="10" fill="none" stroke="#7a3b22" stroke-width="3" opacity="0.3" filter="url(#c5torn)"/>
+
+  
+  <rect width="350" height="550" filter="url(#c5grain)" style="mix-blend-mode:multiply"/>
+  </g>
+</svg><rect width="7" height="220" fill="#000" opacity="0.1"/><rect x="2.2" y="52" width="2.2" height="18" rx="1" fill="#b9bcc0"/><rect x="2.2" y="150" width="2.2" height="18" rx="1" fill="#b9bcc0"/></g><rect x="13" y="16" width="68" height="14" rx="2" fill="#e9e2d0" opacity="0.92"/><text x="18" y="26" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="9" font-weight="700" fill="#2b2a26" text-anchor="start" letter-spacing="2.4">No. 0003</text><rect x="16" y="150" width="108" height="46" fill="#e9e2d0" fill-opacity="0.92" stroke="#2b2a26" stroke-width="1.2"/><text x="70" y="170" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="11" font-weight="700" fill="#2b2a26" text-anchor="middle" letter-spacing="1.4">HUNTER'S</text><text x="70" y="184" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="11" font-weight="700" fill="#2b2a26" text-anchor="middle" letter-spacing="1.4">FIELD</text></svg></g></g><g opacity="0"><animateTransform attributeName="transform" type="translate" values="0 50;0 50;0 0;0 0;0 30" keyTimes="0;0.09;0.14;0.94;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.09;0.125;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><g transform="rotate(5 325.0 191.85714285714286)"><g filter="url(#lift)"><rect x="250" y="74" width="150" height="235.714" rx="5.357" fill="#000" opacity="0.001"/></g><svg x="250" y="74" width="150" height="235.714" viewBox="0 0 140 220" overflow="visible"><clipPath id="cc7"><rect width="140" height="220" rx="5"/></clipPath><g clip-path="url(#cc7)"><rect width="140" height="220" fill="#c49a6c" filter="url(#grain)"/><g transform="translate(50 64)"><g><animateTransform attributeName="transform" type="translate" values="0 -34;0 -34;0 0.6;0 -1.2;0 0;0 0;0 -34" keyTimes="0;0.14;0.166;0.176;0.186;0.95;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><ellipse cx="20" cy="56" rx="22" ry="7" fill="#2b2118" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.14;0.148;0.95;0.98;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></ellipse></g><g><animateTransform attributeName="transform" type="translate" values="0 -34;0 -34;0 0.6;0 -1.2;0 0;0 0;0 -34" keyTimes="0;0.172;0.198;0.208;0.218;0.95;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><ellipse cx="18.5" cy="42" rx="16.5" ry="6.2" fill="#2b2118" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.172;0.18;0.95;0.98;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></ellipse></g><g><animateTransform attributeName="transform" type="translate" values="0 -34;0 -34;0 0.6;0 -1.2;0 0;0 0;0 -34" keyTimes="0;0.204;0.23;0.24;0.25;0.95;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><ellipse cx="21.5" cy="30" rx="11.8" ry="5.3" fill="#2b2118" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.204;0.212;0.95;0.98;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></ellipse></g><g><animateTransform attributeName="transform" type="translate" values="0 -34;0 -34;0 0.6;0 -1.2;0 0;0 0;0 -34" keyTimes="0;0.236;0.262;0.272;0.282;0.95;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><ellipse cx="20" cy="19.5" rx="7.6" ry="4.4" fill="#2b2118" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.236;0.244;0.95;0.98;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></ellipse></g><g><animateTransform attributeName="transform" type="rotate" values="0 20.8 14.1;0 20.8 14.1;-32 20.8 14.1;14 20.8 14.1;-6 20.8 14.1;2 20.8 14.1;0 20.8 14.1;0 20.8 14.1" keyTimes="0;0.328;0.363;0.398;0.423;0.443;0.458;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><g><animateTransform attributeName="transform" type="translate" values="0 -34;0 -34;0 0.6;0 -1.2;0 0;0 0;0 -34" keyTimes="0;0.268;0.294;0.304;0.314;0.95;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><ellipse cx="20.8" cy="11" rx="4.1" ry="3.1" fill="#2b2118" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.268;0.276;0.95;0.98;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/></ellipse></g></g></g><rect width="7" height="220" fill="#000" opacity="0.1"/><rect x="2.2" y="52" width="2.2" height="18" rx="1" fill="#b9bcc0"/><rect x="2.2" y="150" width="2.2" height="18" rx="1" fill="#b9bcc0"/></g><text x="18" y="26" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="9" font-weight="700" fill="#2b2118" text-anchor="start" letter-spacing="2.4">No. 0001</text><rect x="16" y="150" width="108" height="46" fill="none" fill-opacity="0.92" stroke="#2b2118" stroke-width="1.2"/><text x="70" y="177" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="11" font-weight="700" fill="#2b2118" text-anchor="middle" letter-spacing="1.4">FIRST CAIRN</text></svg></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.42;0.455;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><animateTransform attributeName="transform" type="scale" values="1.6;1.6;1;1" keyTimes="0;0.42;0.45;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1" additive="sum"/><g transform="rotate(12 381.0 99.0)" filter="url(#diecut)"><svg x="352" y="70" width="58" height="58" viewBox="0 0 120 120"><defs><path id="c8ring" d="M60 60 m -39 0 a 39 39 0 1 1 78 0 a 39 39 0 1 1 -78 0"/></defs><circle cx="60" cy="60" r="54" fill="#3f5b45"/><circle cx="60" cy="60" r="48" fill="none" stroke="#efe6d2" stroke-width="2"/><text font-family="Futura, Avenir Next, sans-serif" font-weight="700" font-size="12.5" fill="#efe6d2"><textPath href="#c8ring" textLength="238" lengthAdjust="spacing">FIELD TESTED · FIELD TESTED · </textPath></text><g transform="translate(60 62)"><ellipse cy="14" rx="15" ry="5" fill="#efe6d2"/><ellipse cx="-1" cy="4" rx="11" ry="4.4" fill="#efe6d2"/><ellipse cx="1" cy="-5" rx="8" ry="3.6" fill="#efe6d2"/><ellipse cy="-12" rx="5" ry="2.8" fill="#efe6d2"/></g></svg></g></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.05;0.085;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><text x="470" y="150" font-family='Futura, "Futura PT", "Century Gothic", "Avenir Next", "Trebuchet MS", sans-serif' font-size="64" font-weight="700" fill="#2a2622" text-anchor="start" letter-spacing="12">CAIRN</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.1;0.135;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><text x="472" y="186" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="20" font-weight="500" fill="#5d554b" text-anchor="start">Notes as markers you leave behind.</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.15;0.185;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><text x="472" y="216" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="14" font-weight="600" fill="#a89c8b" text-anchor="start" letter-spacing="0.4">Said KARN, like kern.</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.2;0.235;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><rect x="470" y="244" width="162" height="24" rx="12.0" fill="#fff" stroke="rgba(42,38,34,0.12)"/><text x="551" y="259" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="12" font-weight="600" fill="#2a2622" text-anchor="middle">Plain markdown files</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.22;0.255;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><rect x="648.8" y="244" width="126" height="24" rx="12.0" fill="#fff" stroke="rgba(42,38,34,0.12)"/><text x="711.8" y="259" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="12" font-weight="600" fill="#2a2622" text-anchor="middle">Animated covers</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.275;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><rect x="470" y="278" width="147.6" height="24" rx="12.0" fill="#fff" stroke="rgba(42,38,34,0.12)"/><text x="543.8" y="293" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="12" font-weight="600" fill="#2a2622" text-anchor="middle">Signed GitHub sync</text></g><g opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.26;0.295;0.94;0.975;1" dur="10s" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/><rect x="633.92" y="278" width="147.6" height="24" rx="12.0" fill="#fff" stroke="rgba(42,38,34,0.12)"/><text x="707.72" y="293" font-family='"Avenir Next", -apple-system, "Segoe UI", system-ui, sans-serif' font-size="12" font-weight="600" fill="#2a2622" text-anchor="middle">Claude can read it</text></g></svg>

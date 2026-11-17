@@ -2,6 +2,10 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.14.1 — A README that shows off Cairn
+
+- The README walks through everything Cairn does, with twelve animated illustrations, and spells out how to allow Cairn in **System Settings → Privacy & Security** on first launch.
+
 ## 0.14.0 — Tidier captures
 
 - Notes captured from the companion no longer start with an unused `publish:` line.
