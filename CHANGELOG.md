@@ -6,7 +6,7 @@ Each version on `main` is a release. The Release workflow tags `v<version>`, pub
 
 - The app is now ad-hoc signed as a whole bundle, so macOS no longer calls a downloaded copy damaged. The first launch still needs **System Settings → Privacy & Security → Open Anyway**, because Cairn isn't notarized by Apple yet.
 
-A README that shows off Cairn
+## 0.14.1 — A README that shows off Cairn
 
 - The README walks through everything Cairn does, with twelve animated illustrations, and spells out how to allow Cairn in **System Settings → Privacy & Security** on first launch.
 
