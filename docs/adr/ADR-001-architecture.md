@@ -54,7 +54,7 @@ cairn-vault/
 ```
 
 - Each notebook is a folder with a `notebook.yml`. A numbered prefix gives a stable "edition" order.
-- Note filenames are `YYYY-MM-DD-slug.md`. Per-note metadata (tags, stickers, `publish`) goes in YAML frontmatter.
+- Note filenames are `YYYY-MM-DD-slug.md`. Per-note metadata (tags, stickers) goes in YAML frontmatter.
 - The body of every note stays plain markdown that any other editor can read.
 
 ### 5. Sync: GitHub primary, iCloud as a backup mirror
@@ -85,7 +85,7 @@ The product is named **Cairn** (a trail marker; each note is a marker you leave 
 1. **M1:** Tauri shell, local vault, CodeMirror editor (focus and typewriter modes), multiple notebooks, kraft UI.
 2. **M2:** GitHub sync via `createCommitOnBranch`, iCloud backup mirror, wikilinks and backlinks, FTS5 search.
 3. **M3:** animated SVG covers, sticker sheet, edition colors, merit badges. *Built (Nov 15, 2026):* covers carry one-shot SMIL that plays only as the notebook arrives on the desktop (still everywhere else); 15 die-cut stickers plus `<vault>/stickers/`, placed in page frontmatter or `notebook.yml`; 12 merit badges computed from the vault, earned dates in `<vault>/badges.yml` (not synced; iCloud carries it). Edition colors were already in place (seven stocks and the title-plate picker).
-4. **M4:** Access-gated Pages companion, publish-to-blog, MCP server. *Built (Nov 15, 2026):* `cairn-mcp` (stdio MCP server on the app's vault and FTS5 index; writing only adds); publish opens a PR on the blog repo (never publishes directly); `companion/` Pages site reading the vault by tarball, quick capture by signed commit, Access at the edge plus JWT checks in every function.
+4. **M4:** Access-gated Pages companion, publish-to-blog (removed in 0.14.0: never meant to be part of Cairn), MCP server. *Built (Nov 15, 2026):* `cairn-mcp` (stdio MCP server on the app's vault and FTS5 index; writing only adds); publish opens a PR on the blog repo (never publishes directly); `companion/` Pages site reading the vault by tarball, quick capture by signed commit, Access at the edge plus JWT checks in every function.
 5. **Later:** public release, possibly iOS (Tauri v2 mobile).
 
 ## Consequences

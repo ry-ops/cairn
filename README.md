@@ -18,7 +18,11 @@ Cairn is a Mac app, built for Apple silicon and Intel Macs.
 
 Or build it yourself: see *Develop* below.
 
-**Version 0.13.1.** See [CHANGELOG.md](CHANGELOG.md) and the Releases page.
+**Version 0.14.0.** See [CHANGELOG.md](CHANGELOG.md) and the Releases page.
+
+### New in 0.14.0
+
+- Publish to the blog is gone: it was never meant to be part of Cairn.
 
 ### New in 0.13.1
 

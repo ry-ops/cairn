@@ -61,7 +61,7 @@ export function RepoSheet({ notebook, flush, onDone, onClose }: Props) {
           a repo of notes, anything with markdown. The top-level <code>.md</code> files in the folder are the notes; subfolders are left alone.
           Its cover and settings stay in the vault.
         </p>
-        <div className="publish-grid">
+        <div className="form-grid">
           <label className="wide">
             <span>Repository</span>
             <input autoFocus value={repo} onChange={(e) => { setRepo(e.target.value); setPreview(null); }} placeholder="owner/name" spellCheck={false} />

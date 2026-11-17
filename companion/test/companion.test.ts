@@ -67,7 +67,7 @@ eq(v.notes.map((n) => [n.notebook, n.file, n.title]), [
 ], "notes from tar, newest first; pax long path honored; non-notes skipped");
 eq(noteTitle("plain text", "2026-11-15-ridge-loop.md"), "ridge loop", "title falls back to file name");
 eq(slugify("  Hello, World!! "), "hello-world", "slugify");
-eq(captureText('A "quoted" title', " body \n"), '---\ntitle: "A \'quoted\' title"\ntags: []\nstickers: []\npublish: false\n---\n\n# A "quoted" title\n\nbody\n', "capture template matches the app's");
+eq(captureText('A "quoted" title', " body \n"), '---\ntitle: "A \'quoted\' title"\ntags: []\nstickers: []\n---\n\n# A "quoted" title\n\nbody\n', "capture template matches the app's");
 
 // ---- Access tokens ----
 const kp = (await crypto.subtle.generateKey(

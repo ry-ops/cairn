@@ -1253,12 +1253,11 @@ html.desk-transparent, html.desk-transparent body { background: transparent; }
   .award, .award-patch img, .award-stitch .reveal { animation: none; }
 }
 
-/* ---------- publish to the blog ---------- */
-.publish-sheet { width: min(620px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow-y: auto; }
-.publish-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
-.publish-grid label { display: grid; gap: 4px; font-size: 12px; color: var(--ink-soft); }
-.publish-grid label.wide { grid-column: 1 / -1; }
-.publish-grid input, .publish-grid textarea, .publish-grid select {
+/* ---------- form grid (repo sheet) ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.form-grid label { display: grid; gap: 4px; font-size: 12px; color: var(--ink-soft); }
+.form-grid label.wide { grid-column: 1 / -1; }
+.form-grid input, .form-grid textarea, .form-grid select {
   font: 13px var(--font-ui);
   color: var(--ink);
   background: var(--page);
@@ -1266,20 +1265,7 @@ html.desk-transparent, html.desk-transparent body { background: transparent; }
   border-radius: 5px;
   padding: 6px 8px;
 }
-.publish-grid textarea { resize: vertical; }
-.post-preview pre {
-  max-height: 260px;
-  overflow: auto;
-  margin: 6px 0 0;
-  padding: 10px 12px;
-  background: color-mix(in srgb, var(--ink) 5%, transparent);
-  border-radius: 6px;
-  font-size: 11.5px;
-  white-space: pre-wrap;
-}
-.pr-link { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.pr-link code { font-size: 12px; word-break: break-all; }
-@media (max-width: 560px) { .publish-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
 
 /* ---------- shelf: drag to reorder ---------- */
 .covers { position: relative; }

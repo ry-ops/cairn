@@ -149,7 +149,7 @@ function b64(s: string): string {
 /** A new note, as the app writes them. */
 export function captureText(title: string, body: string): string {
   const safe = title.replace(/"/g, "'");
-  return `---\ntitle: "${safe}"\ntags: []\nstickers: []\npublish: false\n---\n\n# ${title}\n\n${body.trim() ? `${body.trim()}\n` : ""}`;
+  return `---\ntitle: "${safe}"\ntags: []\nstickers: []\n---\n\n# ${title}\n\n${body.trim() ? `${body.trim()}\n` : ""}`;
 }
 
 /** Add a note to a notebook with one signed commit. Returns its path. */
