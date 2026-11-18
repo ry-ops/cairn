@@ -9,7 +9,8 @@ main = "src/worker.ts"
 compatibility_date = "2026-11-01"
 workers_dev = true
 preview_urls = false
-# Variables set later in the dashboard (the Access ones) survive redeploys.
+# Every deploy sets the [vars] below from this file, so change them here, not
+# in the dashboard. keep_vars only keeps variables that aren't listed here.
 keep_vars = true
 
 [assets]

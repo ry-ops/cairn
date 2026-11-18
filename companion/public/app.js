@@ -245,8 +245,8 @@ async function load(force) {
     if (/Access isn't configured/.test(out.error ?? "")) {
       // A fresh deploy: the API stays shut until Cloudflare Access guards it.
       view.innerHTML += `<p class="setup">The companion is deployed, but it serves no notes until Cloudflare Access protects it.
-        Add an Access application for this hostname, then set <code>ACCESS_TEAM_DOMAIN</code> and <code>ACCESS_AUD</code>
-        on the Worker. The steps are in <a href="https://github.com/ry-ops/cairn/tree/main/companion#deploy-with-the-button" rel="noreferrer">the companion's README</a>.</p>`;
+        Copy the <b>AUD tag</b> from the Worker's <b>Access</b> tab into <code>ACCESS_AUD</code> in <code>wrangler.toml</code>
+        in your repo, and check <code>ACCESS_TEAM_DOMAIN</code>; the push redeploys it. The steps are in <a href="https://github.com/ry-ops/cairn/tree/main/companion#deploy-with-the-button" rel="noreferrer">the companion's README</a>.</p>`;
     }
     return;
   }

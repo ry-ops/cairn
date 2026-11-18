@@ -35,6 +35,8 @@ async function keys(team: string, fetcher: typeof fetch): Promise<Jwk[]> {
 }
 
 /** The signed-in email, or an error message. */
+const unset = (v?: string) => !v || /^\s*(unset)?\s*$/i.test(v);
+
 export async function verifyAccess(
   req: Request,
   env: AccessEnv,
@@ -45,7 +47,8 @@ export async function verifyAccess(
   if (env.DEV_BYPASS_ACCESS === "1" && (host === "localhost" || host === "127.0.0.1")) {
     return { email: "dev@localhost" };
   }
-  if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD) return { error: "Access isn't configured" };
+  // The button's form won't take an empty value, so "unset" counts as empty.
+  if (unset(env.ACCESS_TEAM_DOMAIN) || unset(env.ACCESS_AUD)) return { error: "Access isn't configured" };
   const token = req.headers.get("Cf-Access-Jwt-Assertion");
   if (!token) return { error: "not signed in" };
   const parts = token.split(".");
@@ -75,7 +78,7 @@ export async function verifyAccess(
   if (!claims.exp || claims.exp < t || (claims.nbf && claims.nbf > t + 60)) return { error: "expired" };
   if (claims.iss !== `https://${env.ACCESS_TEAM_DOMAIN}`) return { error: "wrong issuer" };
   const email = (claims.email ?? "").toLowerCase();
-  const allowed = (env.ALLOWED_EMAILS ?? "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
+  const allowed = (unset(env.ALLOWED_EMAILS) ? "" : env.ALLOWED_EMAILS!).split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
   if (allowed.length && !allowed.includes(email)) return { error: "not allowed" };
   return { email };
 }

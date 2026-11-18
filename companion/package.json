@@ -22,13 +22,13 @@
         "description": "A [fine-grained token](https://github.com/settings/personal-access-tokens/new) with **Contents: read and write** on the vault repo only."
       },
       "ACCESS_TEAM_DOMAIN": {
-        "description": "Leave empty for now. After you add Cloudflare Access, set it to your team domain, `<team>.cloudflareaccess.com`. Until then the companion serves no notes."
+        "description": "Your Cloudflare Access team domain, such as `myteam.cloudflareaccess.com` (Zero Trust → Settings)."
       },
       "ACCESS_AUD": {
-        "description": "Leave empty for now. After you add Cloudflare Access, set it to the Access application's **AUD tag**."
+        "description": "Type `unset` for now, and turn on **Protect with Cloudflare Access** below. After the deploy, copy the **AUD tag** from the Worker's **Access** tab into `wrangler.toml` in your new repo."
       },
       "ALLOWED_EMAILS": {
-        "description": "Optional: the only emails let in, comma-separated, checked as well as your Access policy."
+        "description": "Optional: the only emails let in, comma-separated, checked as well as your Access policy. `unset` lets in anyone your policy allows."
       }
     }
   }

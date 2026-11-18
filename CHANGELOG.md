@@ -2,6 +2,11 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.15.1 — The Deploy button, tried for real
+
+- The Deploy to Cloudflare button now walks you through the whole form: it turns on Cloudflare Access for you, and you copy one value, the AUD tag, into your copy's `wrangler.toml`. The form won't take empty values, so type `unset`, which the companion treats as not set.
+- The README explains that the variables live in your copy's `wrangler.toml` (dashboard edits are overwritten on the next deploy), and what to do if the page says *GitHub: 401*.
+
 ## 0.15.0 — Deploy the companion with one click
 
 - **The web companion can be deployed with a Deploy to Cloudflare button**, in the README and in `companion/README.md`. It copies the companion into your GitHub account and deploys it as a Worker on your Cloudflare account. It's a Worker with static assets now, not Pages + Functions.

@@ -118,6 +118,7 @@ const call = async (path: string, init: RequestInit = {}, e: object = wenv) => {
 eq(await call("/"), [200, null, "asset /"], "static files come from the assets binding");
 eq(await call("/app.js"), [200, null, "asset /app.js"], "…every non-API path");
 eq(await call("/api/vault", {}, { ...wenv, ACCESS_TEAM_DOMAIN: "", ACCESS_AUD: "" }), [401, "private, no-store", '{"error":"Sign in required (Access isn\'t configured)"}'], "fresh deploy: API refused until Access is set");
+eq(await call("/api/vault", {}, { ...wenv, ACCESS_AUD: "unset" }), [401, "private, no-store", '{"error":"Sign in required (Access isn\'t configured)"}'], "the form's \"unset\" placeholder counts as not configured");
 eq(await call("/api/vault"), [401, "private, no-store", '{"error":"Sign in required (not signed in)"}'], "API needs a login");
 const broken = (async () => new Response("nope", { status: 404 })) as typeof fetch;
 const r404 = await handle(new Request("https://notes.example.com/api/vault", { headers: { "Cf-Access-Jwt-Assertion": await token(good) } }), { ...wenv, ACCESS_TEAM_DOMAIN: "typo.cloudflareaccess.com" } as never, broken);
