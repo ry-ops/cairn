@@ -2,6 +2,10 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.15.2 — Pronounced KARN
+
+- The README now just says Cairn is pronounced ***KARN***.
+
 ## 0.15.1 — The Deploy button, tried for real
 
 - The Deploy to Cloudflare button now walks you through the whole form: it turns on Cloudflare Access for you, and you copy one value, the AUD tag, into your copy's `wrangler.toml`. The form won't take empty values, so type `unset`, which the companion treats as not set.
@@ -36,7 +40,7 @@ Each version on `main` is a release. The Release workflow tags `v<version>`, pub
 
 ## 0.12.0 — First public release
 
-Cairn (pronounced *KARN*, like *kern*) is a markdown notebook app for the Mac, styled like a pocket memo book. Your notes stay plain `.md` files in a folder you choose.
+Cairn (pronounced *KARN*) is a markdown notebook app for the Mac, styled like a pocket memo book. Your notes stay plain `.md` files in a folder you choose.
 
 - **Writing:** an iA Writer-style editor (CodeMirror 6) with focus and typewriter modes; graph, ruled, dot or blank paper per notebook or per page; a typewriter face or the Rock Salt hand.
 - **Notebooks:** a shelf of covers you can drag into order, All Notebooks (⌘0), and notebook mode (⇧⌘F): the notebook on your desktop, cover first, then the open spread, with trackpad page turns.

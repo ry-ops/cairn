@@ -7,11 +7,11 @@
   A markdown notebook app for the Mac, made like a pocket memo book.
 </p>
 
-**Cairn** is pronounced ***KARN***, like *kern*: one syllable, the way *Karin* sounds said as one. It's named for the stacks of stones that mark a trail.
+**Cairn** is pronounced ***KARN***. It's named for the stacks of stones that mark a trail.
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.15.1** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.15.2** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 

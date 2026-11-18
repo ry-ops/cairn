@@ -349,7 +349,7 @@ def hero() -> str:
     x = 470
     b.append(f'<g opacity="0">{show(0.5, D - 0.6, D)}' + text(x, 150, "CAIRN", 64, INK, DISPLAY, 700, spacing=12) + "</g>")
     b.append(f'<g opacity="0">{show(1.0, D - 0.6, D)}' + text(x + 2, 186, "Notes as markers you leave behind.", 20, SOFT, UI, 500) + "</g>")
-    b.append(f'<g opacity="0">{show(1.5, D - 0.6, D)}' + text(x + 2, 216, "Said KARN, like kern.", 14, MARK, UI, 600, spacing=0.4) + "</g>")
+    b.append(f'<g opacity="0">{show(1.5, D - 0.6, D)}' + text(x + 2, 216, "Said KARN.", 14, MARK, UI, 600, spacing=0.4) + "</g>")
     chips = [["Plain markdown files", "Animated covers"], ["Signed GitHub sync", "Claude can read it"]]
     for r, row in enumerate(chips):
         cx = x
