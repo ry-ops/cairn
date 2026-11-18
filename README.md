@@ -11,7 +11,7 @@
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.15.2** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.15.3** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 

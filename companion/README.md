@@ -37,7 +37,7 @@ If the page says *GitHub: 401*, the token is wrong. Replace it under the Worker'
 2. `npm install`, then `npx wrangler secret put GITHUB_TOKEN` (the same fine-grained token as above).
 3. `npm run deploy`.
 4. Protect the Worker with Access from its **Access** tab, copy the **AUD tag** from the same tab, set `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` in `wrangler.toml`, and deploy again.
-5. Optionally, add your own hostname under the Worker's **Settings → Domains & Routes**. Add it to the Access application first.
+5. Optionally, serve it on your own hostname: add `routes = [{ pattern = "notes.example.com", custom_domain = true }]` to `wrangler.toml` and deploy, so Cloudflare creates the DNS record and certificate. Delete any existing record for that name first; a CNAME to `workers.dev` doesn't work (it gives a 522). Access set to **All traffic** on the Worker covers the new hostname too.
 
 ## Develop
 

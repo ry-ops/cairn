@@ -2,6 +2,10 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.15.3 — The companion on your own hostname
+
+- The companion README explains how to serve it on your own hostname with a Worker custom domain, and why a CNAME to `workers.dev` doesn't work.
+
 ## 0.15.2 — Pronounced KARN
 
 - The README now just says Cairn is pronounced ***KARN***.
