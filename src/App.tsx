@@ -15,6 +15,7 @@ import { getKey, setKey } from "./frontmatter";
 import type { LinkHost } from "./editor/wikilinks";
 import { Book, IndexedNote, WikiLink, backlinks, findBook, indexNote, linkText, resolve } from "./links";
 import { NoteMeta, Notebook, NotebookMeta, Paper, SyncInfo, SyncReport, noteTitle, store } from "./store";
+import { WEB_CHANGED } from "./webstore";
 import { Backlinks } from "./components/Backlinks";
 import { SearchPalette } from "./components/SearchPalette";
 import { PageStickers, pageGeometry } from "./components/PageStickers";
@@ -27,8 +28,11 @@ import "./App.css";
 const PAPERS: Paper[] = ["graph", "ruled", "dot", "blank"];
 const FOCUS_CYCLE: FocusMode[] = ["off", "sentence", "paragraph"];
 const SAVE_DELAY_MS = 500;
-const SYNC_AFTER_SAVE_MS = 20_000; // a quiet moment after typing
+const WEB = store.kind === "web";
+// A quiet moment after typing. The web build commits sooner: a tab can close.
+const SYNC_AFTER_SAVE_MS = WEB ? 4_000 : 20_000;
 const SYNC_EVERY_MS = 5 * 60_000; // pick up changes from elsewhere
+const PHONE = "(max-width: 640px)";
 const MIRROR_AFTER_SAVE_MS = 10_000;
 const HEX = /^#[0-9a-f]{6}$/i;
 const IN_TAURI = "__TAURI_INTERNALS__" in window;
@@ -140,6 +144,15 @@ export default function App() {
     mq.addEventListener("change", on);
     return () => mq.removeEventListener("change", on);
   }, []);
+  // A phone (the web companion): one pane at a time, shelf → notes → page.
+  const [phone, setPhone] = useState(() => window.matchMedia(PHONE).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE);
+    const on = () => setPhone(mq.matches);
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  const [pane, setPane] = useState<"shelf" | "notes" | "page">("notes");
   const [bookMode, setBookMode] = useState(false);
   const bookModeRef = useRef(false);
   bookModeRef.current = bookMode;
@@ -287,6 +300,15 @@ export default function App() {
     }
   };
 
+  // The web build: any change (a cover, the shelf, a sticker) syncs soon,
+  // not only note saves.
+  useEffect(() => {
+    if (!WEB) return;
+    const on = () => afterSave.current?.();
+    window.addEventListener(WEB_CHANGED, on);
+    return () => window.removeEventListener(WEB_CHANGED, on);
+  }, []);
+
   // On open, every few minutes, and when the window is hidden.
   useEffect(() => {
     if (!vault) return;
@@ -319,7 +341,10 @@ export default function App() {
 
   // Boot: find the vault, load the shelf.
   useEffect(() => {
-    store.getVault().then(setVault).catch(fail);
+    store.getVault().then(setVault).catch((e) => {
+      fail(e);
+      if (WEB) setVault(null); // show why on the welcome screen
+    });
   }, [fail]);
 
   useEffect(() => {
@@ -364,6 +389,7 @@ export default function App() {
       const body = await store.readNote(nb, f);
       setText(body);
       setFile(f);
+      setPane("page");
       setSaveState("saved");
     } catch (e) {
       fail(e);
@@ -740,6 +766,24 @@ export default function App() {
 
   if (vault === undefined) return <div className="boot" />;
 
+  if (!vault && WEB) {
+    // The companion couldn't load the vault (Access, the token, GitHub).
+    return (
+      <main className="welcome">
+        <CoverDefs />
+        <CairnMark color="var(--ink)" size={72} />
+        <h1>Cairn</h1>
+        <p className="error">{error ?? "Couldn't load the vault."}</p>
+        {/Access isn't configured/.test(error ?? "") && (
+          <p className="hint">
+            The companion is deployed, but it serves no notes until Cloudflare Access protects it. Copy the <b>AUD tag</b> from the Worker's <b>Access</b> tab into <code>ACCESS_AUD</code> in your repo's <code>wrangler.toml</code>. The steps are in <a href="https://github.com/ry-ops/cairn/tree/main/companion#deploy-with-the-button" rel="noreferrer">the companion's README</a>.
+          </p>
+        )}
+        <button className="btn primary" onClick={() => location.reload()}>Try again</button>
+      </main>
+    );
+  }
+
   if (!vault) {
     return (
       <main className="welcome">
@@ -774,7 +818,7 @@ export default function App() {
 
   return (
     <StickerContext.Provider value={stickerMap}>
-    <div className={`app${chrome ? "" : " no-chrome"}${narrow && chrome === true && !peek ? " auto-chrome" : ""}${bookMode ? " book-mode" : ""}${f.hand ? " hand" : ""}`} style={vars}>
+    <div className={`app${chrome ? "" : " no-chrome"}${narrow && !phone && chrome === true && !peek ? " auto-chrome" : ""}${phone ? ` phone pane-${pane}` : ""}${bookMode ? " book-mode" : ""}${f.hand ? " hand" : ""}`} style={vars}>
       <CoverDefs />
 
       <aside className="shelf" aria-label="Notebooks">
@@ -796,7 +840,7 @@ export default function App() {
             </svg>
           </button>
         </header>
-        <SortableCovers notebooks={notebooks} art={art} selected={bookId} onSelect={setBookId} onReorder={reorderShelf} onMenu={(id) => { setBookId(id); setBookMenu(true); }}>
+        <SortableCovers notebooks={notebooks} art={art} selected={bookId} onSelect={(id) => { setBookId(id); setPane("notes"); }} onReorder={reorderShelf} onMenu={(id) => { setBookId(id); setBookMenu(true); }}>
           <button className="cover add" onClick={() => setNewBook(true)} title="New notebook (⇧⌘N)">
             <span>+</span>
             <small>New notebook</small>
@@ -804,7 +848,7 @@ export default function App() {
         </SortableCovers>
         <VaultCard
           name={store.kind === "memory" ? "Preview vault" : (vault.split("/").pop() ?? vault)}
-          path={store.kind === "memory" ? "In-memory preview vault" : vault}
+          path={store.kind === "memory" ? "In-memory preview vault" : WEB ? `github.com/${vault}` : vault}
           problem={syncLook === "error" ? syncError : null}
           sync={syncLook}
           syncLabel={
@@ -818,8 +862,8 @@ export default function App() {
           canSync={linked}
           badges={earned ? { got: BADGES.filter((b) => earned[b.id]).length, of: BADGES.length } : null}
           onSyncNow={() => void syncQuietly()}
-          onSyncSettings={() => setShowSync(true)}
-          onChangeVault={() => void pickVault()}
+          onSyncSettings={WEB ? undefined : () => setShowSync(true)}
+          onChangeVault={WEB ? undefined : () => void pickVault()}
           onBadges={() => setShowSash(true)}
         />
       </aside>
@@ -828,6 +872,9 @@ export default function App() {
         {book ? (
           <>
             <header className="notes-head">
+              {phone && (
+                <button className="icon-btn phone-back" onClick={() => setPane("shelf")} aria-label="Back to the notebooks">‹</button>
+              )}
               <div>
                 <div className="eyebrow">
                   No. {String(book.meta.edition).padStart(4, "0")}
@@ -836,7 +883,7 @@ export default function App() {
                 <h2>{book.meta.title}</h2>
               </div>
               <div className="head-actions">
-                <NotebookMenu open={bookMenu} setOpen={setBookMenu} linked={!!book.meta.repo} onCover={() => setPicker(true)} onRepo={() => setRepoBook(book)} onTrash={() => setTrashBook(book)} />
+                <NotebookMenu open={bookMenu} setOpen={setBookMenu} linked={!!book.meta.repo} onCover={() => setPicker(true)} onRepo={WEB ? undefined : () => setRepoBook(book)} onTrash={() => setTrashBook(book)} />
                 <button className="icon-btn" onClick={() => setNewNote(true)} title="New note (⌘N)">+</button>
               </div>
               <NotebookTools notebook={book} art={art[book.id]?.cover ?? null} papers={PAPERS} onPaper={(p) => void setBookPaper(p)} onCover={() => setPicker(true)} onRepo={() => setRepoBook(book)} />
@@ -927,6 +974,9 @@ export default function App() {
             </div>
           )}
             <footer className="status">
+              {phone && (
+                <button className="toggle phone-back" onClick={() => setPane("notes")} aria-label="Back to the notes">‹ notes</button>
+              )}
               <span>{words} {words === 1 ? "word" : "words"} · {Math.max(1, Math.round(words / 230))} min</span>
               <span className={`save ${saveState}`}>{saveState}</span>
               <button className="toggle book-toggle" onClick={() => toggleBookMode(true)} title="Notebook on the desktop (⇧⌘F)">

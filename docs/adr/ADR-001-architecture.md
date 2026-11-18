@@ -114,3 +114,13 @@ The web companion is to show the same vault the app does (covers, shelf order, b
 - **What syncs:** `notebooks/<id>/*.md`, `notebook.yml` and `*.svg` (cover and button art), `shelf.yml`, `badges.yml`, `stickers/*.svg` and `covers/*.svg`. A notebook with its own repo still syncs only its notes there; its art and `notebook.yml` stay in the vault repo.
 - **Conflicts on art and settings** keep the local file and save the other side as a local-only `<name>.conflict-<stamp>.<ext>`, as `notebook.yml` did. Only notes push their conflict copies.
 - The first sync after this change uploads the art and settings that were local until now.
+
+## Amendment 3 (2026-11-18): the companion is the app
+
+The companion was a separate small page (read, search, quick capture). It's now the desktop app's own interface, built for the web, so the two can't drift apart.
+
+- **One UI, three stores.** `src/store.ts` picks Tauri IPC in the app, the web store (`src/webstore.ts`) in `vite build --mode web`, and the in-memory preview in `vite dev`. The web store ports `vault.rs`'s rules (names, `notebook.yml`, `shelf.yml`, `badges.yml`, art paths) to TypeScript.
+- **Sync is the commit.** Edits apply in the browser and go up as one `createCommitOnBranch` commit per sync round, through the Worker's `/api/commit`, so the app's sync UI and timers work unchanged (a shorter quiet moment on the web: 4 s). Each edit carries the blob sha it was based on; a note changed elsewhere since keeps the browser's version and saves theirs as a conflict copy, and a delete of a changed note is dropped, the same rule as the app.
+- **Built output is committed** in `companion/public`, because the Deploy button copies `companion/` alone. CI rebuilds it and fails if it differs.
+- **Left to the Mac app:** choosing a vault, sync settings, linking a notebook to its own repo.
+

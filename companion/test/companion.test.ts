@@ -1,6 +1,7 @@
 // Companion server pieces, in plain Node (no deps): pnpm test (or npm test).
 import { verifyAccess } from "../src/access.ts";
 import { captureText, noteTitle, parseVault, slugify, untar } from "../src/vault.ts";
+import { blobSha, checkChanges, conflictPath, isSynced, planCommit, snapshotFrom } from "../src/files.ts";
 import { handle } from "../src/worker.ts";
 
 let failed = 0;
@@ -127,5 +128,33 @@ const signed = { "Cf-Access-Jwt-Assertion": await token(good) };
 eq(await call("/api/nope", { headers: signed }), [404, "private, no-store", '{"error":"not found"}'], "unknown API path");
 eq(await call("/api/capture", { method: "POST", headers: { ...signed, Origin: "https://evil.example", "Content-Type": "application/json" }, body: "{}" }), [403, "private, no-store", '{"error":"cross-origin"}'], "capture refuses cross-origin posts");
 eq(await call("/api/capture", { method: "POST", headers: { ...signed, "Content-Type": "text/plain" }, body: "x" }), [415, "private, no-store", '{"error":"JSON only"}'], "capture takes JSON only");
+
+
+// ---- the web build's files API ----
+eq(["shelf.yml", "badges.yml", "stickers/heron.svg", "covers/dusk.svg", "notebooks/0001-a/x.md", "notebooks/0001-a/notebook.yml", "notebooks/0001-a/cover.svg"].every(isSynced), true, "isSynced: what the app syncs");
+eq(["config.yml", "README.md", ".trash/notebooks/0001-a/x.md", "notebooks/0001-a/sub/x.md", "notebooks/0001-a/.x.md", "notebooks/0001-a/cover.conflict-1.svg", "notebooks/0001-a/photo.png", "covers/a/b.svg", "../shelf.yml"].some(isSynced), false, "…and nothing else");
+eq(await blobSha(new TextEncoder().encode("hello\n")), "ce013625030ba8dba906f756967f9e9ca394464a", "blob sha matches git");
+eq(conflictPath("notebooks/0001-a/x.md", "20261118-064631"), "notebooks/0001-a/x.conflict-20261118-064631.md", "conflict copies named like the app's");
+const snap = await snapshotFrom(untar(tar([["o-r-abc/shelf.yml", "order: []\n"], ["o-r-abc/notebooks/0001-a/x.md", "# X\n"], ["o-r-abc/config.yml", "secret\n"], ["o-r-abc/.github/workflows/x.yml", "x"]])));
+eq(snap.map((f) => f.path), ["notebooks/0001-a/x.md", "shelf.yml"], "the snapshot holds synced files only");
+const bad = (x: unknown) => { try { checkChanges(x); return "accepted"; } catch (e) { return String((e as Error).message).split(":")[0]; } };
+eq([bad([]), bad([{ path: "../x.md", text: "x", base: null }]), bad([{ path: ".github/workflows/x.yml", text: "x", base: null }]), bad([{ path: "shelf.yml", text: 3, base: null }]), bad([{ path: "shelf.yml", text: "x", base: "nope" }]), bad([{ path: "shelf.yml", text: "a", base: null }, { path: "shelf.yml", text: "b", base: null }])], ["bad changes", "bad path", "bad path", "bad text", "bad base", "bad path"], "commit input is checked: paths, types, shas, duplicates");
+eq(bad([{ path: "notebooks/0001-a/x.md", text: "x", base: null }, { path: "shelf.yml", text: null, base: "a".repeat(40) }]), "accepted", "…good input passes");
+const shaOf = async (s: string) => blobSha(new TextEncoder().encode(s));
+const remoteNow = new Map([["notebooks/0001-a/x.md", await shaOf("theirs\n")], ["notebooks/0001-a/y.md", await shaOf("y\n")], ["shelf.yml", await shaOf("order: [b]\n")]]);
+const plan = await planCommit([
+  { path: "notebooks/0001-a/x.md", text: "mine\n", base: await shaOf("old\n") },
+  { path: "notebooks/0001-a/y.md", text: null, base: await shaOf("old y\n") },
+  { path: "shelf.yml", text: "order: [a]\n", base: await shaOf("order: []\n") },
+  { path: "notebooks/0001-a/z.md", text: "new\n", base: null },
+  { path: "notebooks/0001-a/w.md", text: "same\n", base: null },
+], new Map([...remoteNow, ["notebooks/0001-a/w.md", await shaOf("same\n")]]), "20261118-000000");
+eq(plan.additions.map((a) => a.path), ["notebooks/0001-a/x.md", "shelf.yml", "notebooks/0001-a/z.md"], "plan: edits go up, an identical file is skipped");
+eq(plan.conflicts.map((c) => c.copy), ["notebooks/0001-a/x.conflict-20261118-000000.md"], "a note changed on both sides keeps theirs as a copy");
+eq(plan.deletions, [], "a delete of a note changed elsewhere is dropped");
+eq((await planCommit([{ path: "notebooks/0001-a/y.md", text: null, base: await shaOf("y\n") }], remoteNow, "s")).deletions, [{ path: "notebooks/0001-a/y.md" }], "a delete of an unchanged note goes through");
+eq(await call("/api/commit", { method: "POST", headers: { ...signed, Origin: "https://evil.example", "Content-Type": "application/json" }, body: "{}" }), [403, "private, no-store", '{"error":"cross-origin"}'], "commit refuses cross-origin posts");
+eq(await call("/api/commit", { method: "POST", headers: { ...signed, "Content-Type": "application/json" }, body: '{"changes":[{"path":"../x","text":"x","base":null}]}' }), [400, "private, no-store", '{"error":"bad path: ../x"}'], "commit refuses paths outside the vault's synced files");
+eq((await call("/api/files"))[0], 401, "files need a login");
 
 if (failed) throw new Error(`${failed} companion test(s) failed`);

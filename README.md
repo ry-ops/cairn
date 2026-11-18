@@ -11,7 +11,7 @@
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.16.0** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.17.0** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 
@@ -155,11 +155,12 @@ It uses the same vault as the app (from Cairn's settings, `--vault <path>` or `C
 
 <img src="docs/readme/companion.svg" width="880" alt="On a phone, the companion lists notebooks and saves a quick capture; it becomes a signed commit in the vault repo, and Cairn picks it up as a new note on its next sync.">
 
-`companion/` is a small web app you deploy to **your own Cloudflare account**. With it you can read, search and jot notes from any browser, phone included.
+`companion/` is **Cairn in a browser**: the app's own interface, built for the web, that you deploy to **your own Cloudflare account**. The same covers, notes, editor, stickers and badges, from any browser, phone included.
 
 - **One click to deploy:** the button below copies it into your GitHub account and deploys it as a Worker on your Cloudflare account, behind Cloudflare Access. Then you copy one value, the Access AUD tag, into your copy's `wrangler.toml`.
 - **Locked down:** Cloudflare Access guards it at the edge, and every API call checks the Access token too. Until Access is set up, it serves no notes at all.
-- **Quick capture** saves a note as a signed commit, and Cairn picks it up on its next sync.
+- **Edits sync like the app's:** a few seconds after you stop typing they go up as one signed commit, and Cairn on your Mac picks them up on its next sync. Conflicts keep both versions, as the app does.
+- **On a phone** it shows one pane at a time: shelf, notes, page.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ry-ops/cairn/tree/main/companion)
 

@@ -1,7 +1,9 @@
 // Storage abstraction (ADR-001 consequences): the desktop app talks to the
-// Rust vault over Tauri IPC; a browser build (preview now, Pages companion
-// later) gets a different implementation behind the same interface.
+// Rust vault over Tauri IPC; the web build (the companion, `vite build
+// --mode web`) reads and commits the vault repo through the companion's
+// Worker (webstore.ts); a plain `vite dev` gets an in-memory preview.
 import { invoke } from "@tauri-apps/api/core";
+import { webStore } from "./webstore.ts";
 
 export type Paper = "graph" | "ruled" | "dot" | "blank";
 
@@ -56,7 +58,7 @@ export interface SearchHit {
 }
 
 export interface VaultStore {
-  readonly kind: "tauri" | "memory";
+  readonly kind: "tauri" | "memory" | "web";
   getVault(): Promise<string | null>;
   pickVault(): Promise<string | null>;
   listNotebooks(): Promise<Notebook[]>;
@@ -373,12 +375,12 @@ function memoryStore(): VaultStore {
 }
 
 export const store: VaultStore =
-  "__TAURI_INTERNALS__" in window ? tauriStore : memoryStore();
+  "__TAURI_INTERNALS__" in window ? tauriStore : import.meta.env?.MODE === "web" ? webStore() : memoryStore();
 
 // Browser preview only: a plain scan standing in for the app's FTS5 index,
 // with the same rules (every word, last one a prefix, title matches first).
 const fold = (s: string) => s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-function previewSearch(query: string, all: NoteText[]): SearchHit[] {
+export function previewSearch(query: string, all: NoteText[]): SearchHit[] {
   const words = fold(query).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
   if (!words.length) return [];
   const exact = words.slice(0, -1).map((w) => new RegExp(`(?<![\\p{L}\\p{N}])${w}(?![\\p{L}\\p{N}])`, "u"));

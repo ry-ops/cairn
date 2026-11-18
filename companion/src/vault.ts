@@ -27,7 +27,7 @@ export interface VaultData {
   notes: Note[];
 }
 
-const gh = (env: VaultEnv, path: string, init: RequestInit = {}) =>
+export const gh = (env: VaultEnv, path: string, init: RequestInit = {}) =>
   fetch(`https://api.github.com/${path}`, {
     ...init,
     headers: {

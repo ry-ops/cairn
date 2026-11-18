@@ -2,6 +2,12 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.17.0 — The companion is the app
+
+- **The web companion is now Cairn itself, in a browser:** the same shelf, notes, editor, covers, stickers, badges and search. Edits go up to your vault repo as one signed commit a few seconds after you stop, and Cairn on your Mac picks them up on its next sync. Conflicts keep both versions, as the app does.
+- On a phone it shows one pane at a time: shelf, notes, page.
+- If you deployed the companion with the button, copy the new `companion/` folder over your copy to update it (see `companion/README.md`).
+
 ## 0.16.0 — Sync carries covers, badges and stickers
 
 - GitHub sync now carries each notebook's cover and button art, the shelf order, your merit badges, your own stickers and the cover library, not just notes and `notebook.yml`. Conflicts on those keep your copy and save the other side beside it, locally.

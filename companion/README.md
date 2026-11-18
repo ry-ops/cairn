@@ -1,15 +1,20 @@
 # Cairn companion
 
-Read, search and jot notes from any browser, phone included. It reads the vault from its GitHub repo, the one Cairn syncs to (`VAULT_REPO` in `wrangler.toml`). It only shows what has synced, so turn on sync in the app first.
+**Cairn in any browser, phone included: the same app.** The page is the desktop app's own interface, built for the web: the shelf of covers, the notes, the editor on its paper, the cover picker, stickers, merit badges, search, notebook mode. It works on the vault in its GitHub repo, the one Cairn syncs to (`VAULT_REPO` in `wrangler.toml`), so turn on sync in the app first.
 
-- **Hosting:** one Cloudflare Worker with static assets: the page in `public/` (static, no third-party scripts) and the API in `src/worker.ts`.
-- **`GET /api/vault`:** every notebook and note at the branch head. It costs one tarball download per commit, cached, so it fits the free plan's subrequest limit at any vault size.
-- **`POST /api/capture`:** a new note as one signed `createCommitOnBranch` commit, the same way the app's sync commits. The app picks it up on its next sync.
+- **Hosting:** one Cloudflare Worker with static assets: the app in `public/` (built from the repo's `src/` by `pnpm build:web`; don't edit it by hand) and the API in `src/worker.ts`.
+- **Editing syncs like the app.** Your edits apply at once, and a few seconds after you stop (or when the tab hides) they go up as **one signed commit**. The vault card says *Synced just now*, and *Sync now* is there too. The Mac picks the commit up on its next sync.
+- **Conflicts follow the app's rule.** A note changed both here and elsewhere keeps your version, and theirs is saved beside it as a `.conflict-<stamp>.md` copy. A note you delete that changed elsewhere is kept.
+- **On a phone** it shows one pane at a time, shelf → notes → page, with ‹ to go back.
+- **Not here:** choosing another vault, sync settings and linking a notebook to its own repo stay in the Mac app. A notebook with its own repo shows its cover but not its notes.
+- **`GET /api/files`:** every file the app syncs, at the branch head, with its git blob sha. It costs one tarball download per commit, cached, so it fits the free plan's subrequest limit at any vault size. `?have=<head>` answers *unchanged* without a download.
+- **`POST /api/commit`:** a batch of edits as one signed `createCommitOnBranch` commit. Only the paths the app syncs are accepted.
+- **`GET /api/vault`** and **`POST /api/capture`:** the earlier read and quick-capture API, kept for anything that uses it.
 - **Two locks:**
   - Cloudflare Access guards every hostname (for example, a policy that allows only your email, with a one-time PIN or TOTP).
   - Each API call also verifies the Access JWT (signature, AUD, issuer, expiry, and optionally the email) in `src/access.ts`. A hostname missing from the Access app still can't serve notes.
 - **Safe before it's set up:** until `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` are set (empty or `unset` counts as not set), every API call is refused with *Sign in required (Access isn't configured)*. A fresh deploy shows the page and no notes.
-- **Headers:** a strict CSP, `noindex`, `no-referrer` and `no-store`, on the page (`public/_headers`) and on every API response.
+- **Headers:** a strict CSP (scripts only from the page itself; inline styles are allowed, which the editor needs), `noindex`, `no-referrer` and `no-store`, on the page (`web/_headers`, copied into `public/`) and on every API response.
 
 ## Deploy with the button
 
@@ -39,12 +44,19 @@ If the page says *GitHub: 401*, the token is wrong. Replace it under the Worker'
 4. Protect the Worker with Access from its **Access** tab, copy the **AUD tag** from the same tab, set `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` in `wrangler.toml`, and deploy again.
 5. Optionally, serve it on your own hostname: add `routes = [{ pattern = "notes.example.com", custom_domain = true }]` to `wrangler.toml` and deploy, so Cloudflare creates the DNS record and certificate. Delete any existing record for that name first; a CNAME to `workers.dev` doesn't work (it gives a 522). Access set to **All traffic** on the Worker covers the new hostname too.
 
+## Update
+
+The button made your copy once; it doesn't follow this repo. To update, copy this `companion/` folder over your copy (keep your `wrangler.toml` values) and push. The push redeploys.
+
 ## Develop
 
 ```sh
+pnpm build:web  # in the repo root: the app's web build, into companion/public
 npm install
 printf 'GITHUB_TOKEN=%s\nDEV_BYPASS_ACCESS=1\nVAULT_BRANCH=<a scratch branch>\n' "$(gh auth token)" > .dev.vars   # gitignored
 npm run dev     # http://localhost:8788; the bypass only works on localhost
-npm test        # tar/vault parsing, capture template, Access token checks, the Worker's routing
+npm test        # tar/vault parsing, the files API, Access token checks, the Worker's routing
 ```
+
+Use a scratch branch of your vault repo: edits made while developing are real commits.
 

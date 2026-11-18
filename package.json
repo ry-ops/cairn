@@ -1,7 +1,7 @@
 {
   "name": "cairn",
   "private": true,
-  "version": "0.16.0",
+  "version": "0.17.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "tauri": "tauri",
     "test": "pnpm test:links && cd src-tauri && cargo test",
-    "test:links": "node --no-warnings src/links.test.ts"
+    "test:links": "node --no-warnings src/links.test.ts",
+    "build:web": "tsc && vite build --mode web",
+    "test:web": "node --no-warnings src/webstore.test.ts"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.4",
@@ -25,7 +27,8 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "^2.8.4",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "yaml": "2.6.1"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",

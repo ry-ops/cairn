@@ -5,8 +5,14 @@ import process from "node:process";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
-export default defineConfig(() => ({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
+
+  // `vite build --mode web`: the same app for the browser, served by the
+  // companion Worker (companion/public, with companion/web's _headers).
+  ...(mode === "web"
+    ? { publicDir: "companion/web", build: { outDir: "companion/public", emptyOutDir: true } }
+    : {}),
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

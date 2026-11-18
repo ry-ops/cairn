@@ -341,7 +341,8 @@ export function NotebookMenu({ open, setOpen, linked, onCover, onRepo, onTrash }
   setOpen: (o: boolean) => void;
   linked: boolean;
   onCover: () => void;
-  onRepo: () => void;
+  /** Left out in the web build: linking a repo is done in the Mac app. */
+  onRepo?: () => void;
   onTrash: () => void;
 }) {
   const pick = (f: () => void) => () => {
@@ -359,7 +360,7 @@ export function NotebookMenu({ open, setOpen, linked, onCover, onRepo, onTrash }
       </button>
       <Popover open={open} onClose={() => setOpen(false)} place="below-end" className="book-pop">
         <button role="menuitem" className="pop-item" onClick={pick(onCover)}>Change cover…</button>
-        <button role="menuitem" className="pop-item" onClick={pick(onRepo)}>{linked ? "Repo sync…" : "Sync with a repo…"}</button>
+        {onRepo && <button role="menuitem" className="pop-item" onClick={pick(onRepo)}>{linked ? "Repo sync…" : "Sync with a repo…"}</button>}
         <div className="pop-sep" />
         <button role="menuitem" className="pop-item danger" onClick={pick(onTrash)}>Move to Trash…</button>
       </Popover>
@@ -419,8 +420,9 @@ export function VaultCard({ name, path, problem, sync, syncLabel, syncTitle, can
   canSync: boolean;
   badges: { got: number; of: number } | null;
   onSyncNow: () => void;
-  onSyncSettings: () => void;
-  onChangeVault: () => void;
+  /** Left out in the web build, where the vault is the repo it was deployed with. */
+  onSyncSettings?: () => void;
+  onChangeVault?: () => void;
   onBadges: () => void;
 }) {
   const [open, setOpen] = useState(false);
@@ -469,12 +471,16 @@ export function VaultCard({ name, path, problem, sync, syncLabel, syncTitle, can
               Sync now
             </button>
           )}
-          <button role="menuitem" className="pop-item" onClick={pick(onSyncSettings)}>
-            {canSync ? "Sync settings…" : "Set up GitHub sync…"}
-          </button>
-          <button role="menuitem" className="pop-item" onClick={pick(onChangeVault)}>
-            Open another vault…
-          </button>
+          {onSyncSettings && (
+            <button role="menuitem" className="pop-item" onClick={pick(onSyncSettings)}>
+              {canSync ? "Sync settings…" : "Set up GitHub sync…"}
+            </button>
+          )}
+          {onChangeVault && (
+            <button role="menuitem" className="pop-item" onClick={pick(onChangeVault)}>
+              Open another vault…
+            </button>
+          )}
         </Popover>
       </div>
     </footer>
