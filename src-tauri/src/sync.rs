@@ -1,8 +1,10 @@
 //! GitHub sync and iCloud mirror (ADR-001 §5).
 //!
 //! Sync talks to the GitHub API directly; no git runs locally, so the vault
-//! can live anywhere, including iCloud Drive. Only notes (`*.md`) and
-//! `notebook.yml` files under `notebooks/<id>/` are synced.
+//! can live anywhere, including iCloud Drive. What syncs (see [`is_synced`]):
+//! notes (`*.md`), `notebook.yml` and art (`*.svg`) under `notebooks/<id>/`,
+//! `shelf.yml` and `badges.yml`, and `stickers/*.svg` and `covers/*.svg`, so
+//! the web companion sees the same covers, order, badges and stickers.
 //!
 //! Each sync covers a [`Scope`]. The vault repo holds every `notebook.yml`
 //! and the notes of notebooks without a repo of their own; a notebook with
@@ -53,13 +55,28 @@ pub enum Local {
 /// Is this vault-relative path (with `/` separators) synced?
 pub fn is_synced(rel: &str) -> bool {
     let parts: Vec<&str> = rel.split('/').collect();
-    if parts.len() != 3 || parts[0] != "notebooks" {
-        return false;
+    let plain = |name: &str| !name.starts_with('.') && !name.is_empty();
+    // Art and settings conflicts keep a local-only copy (see sync_once).
+    let art = |name: &str| plain(name) && name.ends_with(".svg") && !name.contains(".conflict-");
+    match parts.as_slice() {
+        ["shelf.yml"] | ["badges.yml"] => true,
+        ["stickers" | "covers", name] => art(name),
+        ["notebooks", nb, name] => {
+            plain(nb)
+                && plain(name)
+                && (name.ends_with(".md") || *name == "notebook.yml" || art(name))
+        }
+        _ => false,
     }
-    let (nb, name) = (parts[1], parts[2]);
-    !nb.starts_with('.')
-        && !name.starts_with('.')
-        && (name.ends_with(".md") || name == "notebook.yml")
+}
+
+/// `notebooks/<id>/<name>` → `(id, name)`.
+fn in_notebook(rel: &str) -> Option<(&str, &str)> {
+    let mut parts = rel.split('/');
+    match (parts.next(), parts.next(), parts.next(), parts.next()) {
+        (Some("notebooks"), Some(nb), Some(name), None) => Some((nb, name)),
+        _ => None,
+    }
 }
 
 /// What one sync covers, and where its files live in the repo. Paths in
@@ -88,11 +105,13 @@ impl Scope {
         if !is_synced(rel) {
             return false;
         }
-        let mut parts = rel.split('/').skip(1);
-        let (nb, name) = (parts.next().unwrap_or(""), parts.next().unwrap_or(""));
-        match self {
-            Scope::Vault { own_repo } => !(name.ends_with(".md") && own_repo.contains(nb)),
-            Scope::Notebook { id, .. } => nb == id && name.ends_with(".md"),
+        match (self, in_notebook(rel)) {
+            (Scope::Vault { own_repo }, Some((nb, name))) => {
+                !(name.ends_with(".md") && own_repo.contains(nb))
+            }
+            (Scope::Vault { .. }, None) => true,
+            (Scope::Notebook { id, .. }, Some((nb, name))) => nb == id && name.ends_with(".md"),
+            (Scope::Notebook { .. }, None) => false,
         }
     }
 
@@ -148,9 +167,13 @@ pub fn blob_sha(bytes: &[u8]) -> Sha {
     h.finalize().iter().map(|b| format!("{b:02x}")).collect()
 }
 
-/// Every synced file under `<vault>/notebooks`, with iCloud placeholders.
+/// Every synced file in the vault, with iCloud placeholders.
 pub fn scan_local(vault: &Path) -> Result<BTreeMap<String, Local>> {
     let mut out = BTreeMap::new();
+    scan_dir(vault, "", &mut out)?;
+    for dir in ["stickers", "covers"] {
+        scan_dir(&vault.join(dir), dir, &mut out)?;
+    }
     let root = vault.join("notebooks");
     if !root.is_dir() {
         return Ok(out);
@@ -161,30 +184,46 @@ pub fn scan_local(vault: &Path) -> Result<BTreeMap<String, Local>> {
             continue;
         }
         let nb_name = nb.file_name().to_string_lossy().to_string();
-        for f in fs::read_dir(nb.path())? {
-            let f = f?;
-            if !f.file_type()?.is_file() {
-                continue;
-            }
-            let name = f.file_name().to_string_lossy().to_string();
-            // iCloud placeholder: ".<name>.icloud"
-            if let Some(real) = name
-                .strip_prefix('.')
-                .and_then(|n| n.strip_suffix(".icloud"))
-            {
-                let rel = format!("notebooks/{nb_name}/{real}");
-                if is_synced(&rel) {
-                    out.insert(rel, Local::Placeholder);
-                }
-                continue;
-            }
-            let rel = format!("notebooks/{nb_name}/{name}");
-            if is_synced(&rel) {
-                out.insert(rel, Local::File(blob_sha(&fs::read(f.path())?)));
-            }
-        }
+        scan_dir(&nb.path(), &format!("notebooks/{nb_name}"), &mut out)?;
     }
     Ok(out)
+}
+
+/// The synced files directly in `dir` (vault-relative prefix `rel`).
+fn scan_dir(dir: &Path, rel: &str, out: &mut BTreeMap<String, Local>) -> Result<()> {
+    if !dir.is_dir() {
+        return Ok(());
+    }
+    let join = |name: &str| {
+        if rel.is_empty() {
+            name.to_string()
+        } else {
+            format!("{rel}/{name}")
+        }
+    };
+    for f in fs::read_dir(dir)? {
+        let f = f?;
+        if !f.file_type()?.is_file() {
+            continue;
+        }
+        let name = f.file_name().to_string_lossy().to_string();
+        // iCloud placeholder: ".<name>.icloud"
+        if let Some(real) = name
+            .strip_prefix('.')
+            .and_then(|n| n.strip_suffix(".icloud"))
+        {
+            let p = join(real);
+            if is_synced(&p) {
+                out.insert(p, Local::Placeholder);
+            }
+            continue;
+        }
+        let p = join(&name);
+        if is_synced(&p) {
+            out.insert(p, Local::File(blob_sha(&fs::read(f.path())?)));
+        }
+    }
+    Ok(())
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -660,12 +699,9 @@ pub async fn sync_once(
             Action::DeleteLocal { path } => to_trash(vault, path, &stamp)?,
             Action::Conflict { path, sha, copy } => {
                 let theirs = gh.blob(sha).await?;
-                // notebook.yml conflicts keep a local-only copy; notes push theirs too.
-                let local_copy = if path.ends_with("notebook.yml") {
-                    path.replace("notebook.yml", &format!("notebook.conflict-{stamp}.yml"))
-                } else {
-                    copy.clone()
-                };
+                // Settings and art conflicts keep a local-only copy of theirs
+                // (never synced); notes push theirs too.
+                let local_copy = copy.clone();
                 write_atomic(&vault.join(&local_copy), &theirs)?;
                 if scope.covers(&local_copy) {
                     additions.push((local_copy, theirs));
@@ -798,6 +834,12 @@ mod tests {
         let v = Scope::Vault { own_repo: own };
         assert!(v.covers("notebooks/0001-a/x.md"));
         assert!(v.covers("notebooks/0002-proj/notebook.yml"));
+        assert!(
+            v.covers("notebooks/0002-proj/cover.svg"),
+            "art stays in the vault repo"
+        );
+        assert!(v.covers("shelf.yml") && v.covers("stickers/heron.svg"));
+        assert!(!v.moved_out("shelf.yml"));
         assert!(!v.covers("notebooks/0002-proj/x.md"));
         assert!(v.moved_out("notebooks/0002-proj/x.md"));
         assert_eq!(
@@ -836,6 +878,12 @@ mod tests {
             Some("notebooks/0003-r/README.md")
         );
         assert_eq!(root.to_local("src/a.md"), None);
+        assert_eq!(
+            root.to_local("logo.svg"),
+            None,
+            "a notebook's repo holds notes only"
+        );
+        assert!(!root.covers("shelf.yml"));
         assert_eq!(root.to_remote("notebooks/0003-r/README.md"), "README.md");
     }
 
@@ -843,7 +891,23 @@ mod tests {
     fn synced_paths() {
         assert!(is_synced("notebooks/0001-a/x.md"));
         assert!(is_synced("notebooks/0001-a/notebook.yml"));
-        assert!(!is_synced("notebooks/0001-a/cover.svg"));
+        assert!(is_synced("notebooks/0001-a/cover.svg"));
+        assert!(is_synced("notebooks/0001-a/button.svg"));
+        assert!(!is_synced(
+            "notebooks/0001-a/cover.conflict-20261118-000000.svg"
+        ));
+        assert!(!is_synced(
+            "notebooks/0001-a/notebook.conflict-20261118-000000.yml"
+        ));
+        assert!(!is_synced("notebooks/0001-a/photo.png"));
+        assert!(is_synced("shelf.yml"));
+        assert!(is_synced("badges.yml"));
+        assert!(!is_synced("badges.conflict-20261118-000000.yml"));
+        assert!(!is_synced("config.yml"));
+        assert!(is_synced("stickers/heron.svg"));
+        assert!(is_synced("covers/sunset.svg"));
+        assert!(!is_synced("covers/sub/sunset.svg"));
+        assert!(!is_synced("stickers/.heron.svg"));
         assert!(!is_synced("notebooks/0001-a/.x.md"));
         assert!(!is_synced("notebooks/x.md"));
         assert!(!is_synced("README.md"));
@@ -967,12 +1031,17 @@ mod tests {
         fs::write(nb.join("notebook.yml"), "title: A\n").unwrap();
         fs::write(nb.join("cover.svg"), "<svg/>").unwrap();
         fs::write(nb.join(".y.md.icloud"), "").unwrap();
+        fs::write(v.path().join("shelf.yml"), "order: []\n").unwrap();
+        fs::write(v.path().join("config.yml"), "local only\n").unwrap();
+        fs::create_dir_all(v.path().join("stickers")).unwrap();
+        fs::write(v.path().join("stickers/heron.svg"), "<svg/>").unwrap();
         let s = scan_local(v.path()).unwrap();
-        assert_eq!(s.len(), 3);
+        assert_eq!(s.len(), 6, "{:?}", s.keys());
         assert_eq!(s["notebooks/0001-a/y.md"], Local::Placeholder);
+        assert!(s.contains_key("shelf.yml") && s.contains_key("stickers/heron.svg"));
 
         let r = mirror(v.path(), d.path()).unwrap();
-        assert_eq!((r.copied, r.trashed), (2, 0));
+        assert_eq!((r.copied, r.trashed), (5, 0));
         assert_eq!(mirror(v.path(), d.path()).unwrap().copied, 0, "idempotent");
         fs::remove_file(nb.join("x.md")).unwrap();
         let r = mirror(v.path(), d.path()).unwrap();

@@ -106,3 +106,11 @@ The product is named **Cairn** (a trail marker; each note is a marker you leave 
 - **When:** on launch, 20 s after the last save, every 5 minutes, and when the window hides, but only once linked.
 - **iCloud placeholders** (`.name.md.icloud`, from "Optimize Mac Storage") are never treated as deletions. Cairn lists them, asks iCloud to download them (`brctl download`), and sync skips them until they arrive.
 - **iCloud mirror:** for vaults outside iCloud Drive, an optional one-way copy to `iCloud Drive/Cairn Backup`. Files removed from the vault move to its `.trash/`.
+
+## Amendment 2 (2026-11-18): sync carries art and settings
+
+The web companion is to show the same vault the app does (covers, shelf order, badges, stickers), so sync now covers more than notes. This replaces Amendment 1's "What syncs".
+
+- **What syncs:** `notebooks/<id>/*.md`, `notebook.yml` and `*.svg` (cover and button art), `shelf.yml`, `badges.yml`, `stickers/*.svg` and `covers/*.svg`. A notebook with its own repo still syncs only its notes there; its art and `notebook.yml` stay in the vault repo.
+- **Conflicts on art and settings** keep the local file and save the other side as a local-only `<name>.conflict-<stamp>.<ext>`, as `notebook.yml` did. Only notes push their conflict copies.
+- The first sync after this change uploads the art and settings that were local until now.

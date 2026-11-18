@@ -88,7 +88,7 @@ export function SyncSheet({ info, onSaved, onSynced, onClose }: Props) {
             <input type="checkbox" checked={s.enabled} onChange={(e) => setS({ ...s, enabled: e.target.checked })} />
             Sync this vault with GitHub
           </label>
-          <p className="hint">Notes (<code>.md</code>) and <code>notebook.yml</code> files only. Each sync is one signed commit, made through the GitHub API, so no git runs on this Mac.</p>
+          <p className="hint">Notes, notebook settings and cover art, the shelf order, badges, your stickers and the cover library. Each sync is one signed commit, made through the GitHub API, so no git runs on this Mac.</p>
           <div className="sync-grid">
             <label>
               <span>Repository</span>

@@ -2,6 +2,10 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.16.0 — Sync carries covers, badges and stickers
+
+- GitHub sync now carries each notebook's cover and button art, the shelf order, your merit badges, your own stickers and the cover library, not just notes and `notebook.yml`. Conflicts on those keep your copy and save the other side beside it, locally.
+
 ## 0.15.3 — The companion on your own hostname
 
 - The companion README explains how to serve it on your own hostname with a Worker custom domain, and why a CNAME to `workers.dev` doesn't work.

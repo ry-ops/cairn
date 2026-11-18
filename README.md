@@ -11,7 +11,7 @@
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.15.3** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.16.0** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 
@@ -125,6 +125,7 @@ Pocket notebooks are half about the covers, so Cairn takes them seriously.
 - **When it syncs:** on launch, a moment after you stop typing, every 5 minutes, and when the window hides.
 - **The first sync is always previewed**, and it waits for your OK.
 - **Nothing is merged silently.** When a note changed on both sides, yours is kept and theirs is saved beside it as a `.conflict` copy. A note deleted on GitHub goes to the vault's `.trash/` folder, not into thin air.
+- **What syncs:** your notes, each notebook's `notebook.yml` and cover art, the shelf order, your merit badges, your own stickers and the cover library. The web companion shows all of it, the same as the app.
 - **A notebook can have a repo of its own**, such as a project's `docs/` folder: ⋯ → *Sync with a repo…*. Each note lives in exactly one repo.
 - **iCloud Drive:** a vault in iCloud Drive is backed up and on your other Macs. A vault elsewhere can keep a backup copy there.
 
