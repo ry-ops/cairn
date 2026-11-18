@@ -11,7 +11,7 @@
 
 Every page is a plain `.md` file in a folder you choose, so your notes are yours: open them in any editor, back them up anywhere, keep them forever. On top of those files, Cairn gives you a notebook worth picking up. It has kraft covers that animate as they arrive, paper you can choose, a notebook that sits on your desktop and turns its pages, stickers and merit badges, and an iA Writer-style editor at its core. Sync goes through your own private GitHub repo, as signed commits.
 
-**Version 0.14.2** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
+**Version 0.15.0** · [What's new](CHANGELOG.md) · [Download](https://github.com/ry-ops/cairn/releases/latest) · MIT
 
 ## Install
 
@@ -156,10 +156,13 @@ It uses the same vault as the app (from Cairn's settings, `--vault <path>` or `C
 
 `companion/` is a small web app you deploy to **your own Cloudflare account**. With it you can read, search and jot notes from any browser, phone included.
 
-- **Locked down:** Cloudflare Access guards it at the edge, and every function checks the Access token too.
+- **One click to deploy:** the button below copies it into your GitHub account and deploys it as a Worker on your Cloudflare account. Then you put Cloudflare Access in front of it.
+- **Locked down:** Cloudflare Access guards it at the edge, and every API call checks the Access token too. Until Access is set up, it serves no notes at all.
 - **Quick capture** saves a note as a signed commit, and Cairn picks it up on its next sync.
 
-See [companion/README.md](companion/README.md) to set it up.
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/ry-ops/cairn/tree/main/companion)
+
+The Access steps, and how to deploy by hand, are in [companion/README.md](companion/README.md).
 
 ---
 
@@ -223,7 +226,7 @@ src-tauri/src/
   sync.rs               GitHub sync: three-way plan, signed commits
   search.rs             SQLite FTS5 index
   bin/cairn-mcp.rs      the MCP server
-companion/              the Cloudflare Pages companion
+companion/              the web companion: a Cloudflare Worker
 docs/design/            the design guide: type, covers, colorways
 ```
 

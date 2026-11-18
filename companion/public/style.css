@@ -35,6 +35,8 @@ main { max-width: 720px; margin: 0 auto; padding: 18px 16px 64px; outline: none;
 .title { font: 700 26px/1.2 var(--display); margin: 8px 0 4px; }
 .hint { color: var(--soft); font-size: 13px; }
 .error { color: #b3261e; }
+.setup { color: var(--soft); line-height: 1.5; max-width: 34rem; }
+.setup code { font-size: .9em; }
 .books { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 12px; }
 .book {
   display: grid; grid-template-rows: auto 1fr auto; gap: 6px;

@@ -2,6 +2,11 @@
 
 Each version on `main` is a release. The Release workflow tags `v<version>`, publishes that version's section below as the notes, and attaches macOS disk images for Apple silicon and Intel.
 
+## 0.15.0 — Deploy the companion with one click
+
+- **The web companion can be deployed with a Deploy to Cloudflare button**, in the README and in `companion/README.md`. It copies the companion into your GitHub account and deploys it as a Worker on your Cloudflare account. It's a Worker with static assets now, not Pages + Functions.
+- **It's safe before it's set up:** until you put Cloudflare Access in front of it and set `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD`, it serves no notes, and the page says what to do next.
+
 ## 0.14.2 — Signed as a whole bundle
 
 - The app is now ad-hoc signed as a whole bundle, so macOS no longer calls a downloaded copy damaged. The first launch still needs **System Settings → Privacy & Security → Open Anyway**, because Cairn isn't notarized by Apple yet.

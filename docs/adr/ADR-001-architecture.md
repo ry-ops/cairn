@@ -77,7 +77,7 @@ The product is named **Cairn** (a trail marker; each note is a marker you leave 
 
 ### 8. Tie-ins (later)
 
-- **Companion site** on your own Cloudflare account: Cloudflare Pages behind Cloudflare Access. Reads the vault through the GitHub API. Mostly for reading and search, plus quick capture.
+- **Companion site** on your own Cloudflare account: a Worker with static assets (Cloudflare Pages until 0.15.0) behind Cloudflare Access, deployable with a Deploy to Cloudflare button. Reads the vault through the GitHub API. Mostly for reading and search, plus quick capture.
 - **Cairn MCP server:** search, recall and writing of notes for Claude (FTS5 first, Vectorize later).
 
 ## Milestones

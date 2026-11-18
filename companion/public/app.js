@@ -242,6 +242,12 @@ async function load(force) {
   const out = await r.json().catch(() => ({}));
   if (!r.ok) {
     view.innerHTML = `<p class="error">${esc(out.error ?? `Couldn't load the vault (${r.status}).`)}</p>`;
+    if (/Access isn't configured/.test(out.error ?? "")) {
+      // A fresh deploy: the API stays shut until Cloudflare Access guards it.
+      view.innerHTML += `<p class="setup">The companion is deployed, but it serves no notes until Cloudflare Access protects it.
+        Add an Access application for this hostname, then set <code>ACCESS_TEAM_DOMAIN</code> and <code>ACCESS_AUD</code>
+        on the Worker. The steps are in <a href="https://github.com/ry-ops/cairn/tree/main/companion#deploy-with-the-button" rel="noreferrer">the companion's README</a>.</p>`;
+    }
     return;
   }
   vault = out;

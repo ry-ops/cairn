@@ -1,6 +1,7 @@
 // Companion server pieces, in plain Node (no deps): pnpm test (or npm test).
-import { verifyAccess } from "../functions/_lib/access.ts";
-import { captureText, noteTitle, parseVault, slugify, untar } from "../functions/_lib/vault.ts";
+import { verifyAccess } from "../src/access.ts";
+import { captureText, noteTitle, parseVault, slugify, untar } from "../src/vault.ts";
+import { handle } from "../src/worker.ts";
 
 let failed = 0;
 const eq = (a: unknown, b: unknown, m: string) => {
@@ -106,5 +107,24 @@ eq(await verifyAccess(await req(null, "localhost"), { ...env, DEV_BYPASS_ACCESS:
 eq(await verifyAccess(await req(null), { ...env, DEV_BYPASS_ACCESS: "1" }, certs, now), { error: "not signed in" }, "dev bypass never applies off localhost");
 const forged = `${enc({ alg: "none", kid: "k1" })}.${enc(good)}.`;
 eq(await verifyAccess(new Request("https://n/api", { headers: { "Cf-Access-Jwt-Assertion": forged } }), env, certs, now), { error: "unexpected algorithm" }, "alg=none rejected");
+
+// ---- the Worker: routing, and no notes until Access is set up ----
+const assets = { fetch: async (r: Request) => new Response(`asset ${new URL(r.url).pathname}`) };
+const wenv = { ...env, ASSETS: assets, GITHUB_TOKEN: "t", VAULT_REPO: "o/r" };
+const call = async (path: string, init: RequestInit = {}, e: object = wenv) => {
+  const r = await handle(new Request(`https://notes.example.com${path}`, init), e as never, certs);
+  return [r.status, r.headers.get("Cache-Control"), (await r.text()).slice(0, 60)];
+};
+eq(await call("/"), [200, null, "asset /"], "static files come from the assets binding");
+eq(await call("/app.js"), [200, null, "asset /app.js"], "…every non-API path");
+eq(await call("/api/vault", {}, { ...wenv, ACCESS_TEAM_DOMAIN: "", ACCESS_AUD: "" }), [401, "private, no-store", '{"error":"Sign in required (Access isn\'t configured)"}'], "fresh deploy: API refused until Access is set");
+eq(await call("/api/vault"), [401, "private, no-store", '{"error":"Sign in required (not signed in)"}'], "API needs a login");
+const broken = (async () => new Response("nope", { status: 404 })) as typeof fetch;
+const r404 = await handle(new Request("https://notes.example.com/api/vault", { headers: { "Cf-Access-Jwt-Assertion": await token(good) } }), { ...wenv, ACCESS_TEAM_DOMAIN: "typo.cloudflareaccess.com" } as never, broken);
+eq(r404.status, 401, "unreachable Access keys: 401, not a crash");
+const signed = { "Cf-Access-Jwt-Assertion": await token(good) };
+eq(await call("/api/nope", { headers: signed }), [404, "private, no-store", '{"error":"not found"}'], "unknown API path");
+eq(await call("/api/capture", { method: "POST", headers: { ...signed, Origin: "https://evil.example", "Content-Type": "application/json" }, body: "{}" }), [403, "private, no-store", '{"error":"cross-origin"}'], "capture refuses cross-origin posts");
+eq(await call("/api/capture", { method: "POST", headers: { ...signed, "Content-Type": "text/plain" }, body: "x" }), [415, "private, no-store", '{"error":"JSON only"}'], "capture takes JSON only");
 
 if (failed) throw new Error(`${failed} companion test(s) failed`);

@@ -1,12 +1,25 @@
-# Cairn companion: Cloudflare Pages + Functions, behind Cloudflare Access.
-# Set the three values below for your own deployment (see README.md).
-# Secrets (wrangler pages secret put …): GITHUB_TOKEN (fine-grained, contents
-# read/write on the vault repo only), ACCESS_AUD.
-name = "cairn-notes"
-pages_build_output_dir = "public"
+# Cairn companion: one Worker with static assets, behind Cloudflare Access.
+# Deploy it with the Deploy to Cloudflare button in the README, or by hand
+# (see README.md). Until ACCESS_TEAM_DOMAIN and ACCESS_AUD are set, every API
+# call is refused, so a fresh deploy serves no notes.
+# Secret (wrangler secret put GITHUB_TOKEN): a fine-grained token with
+# Contents read and write on the vault repo only.
+name = "cairn-companion"
+main = "src/worker.ts"
 compatibility_date = "2026-11-01"
+workers_dev = true
+preview_urls = false
+# Variables set later in the dashboard (the Access ones) survive redeploys.
+keep_vars = true
+
+[assets]
+directory = "public"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
 [vars]
 VAULT_REPO = "you/your-cairn-vault"
 VAULT_BRANCH = "main"
-ACCESS_TEAM_DOMAIN = "yourteam.cloudflareaccess.com"
+ACCESS_TEAM_DOMAIN = ""
+ACCESS_AUD = ""
+ALLOWED_EMAILS = ""

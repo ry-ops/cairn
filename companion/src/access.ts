@@ -9,7 +9,7 @@ export interface AccessEnv {
   ACCESS_AUD: string;
   /** Optional: only this email may in (comma-separate several). */
   ALLOWED_EMAILS?: string;
-  /** Local `wrangler pages dev` only: "1" skips the check on localhost. */
+  /** Local `wrangler dev` only: "1" skips the check on localhost. */
   DEV_BYPASS_ACCESS?: string;
 }
 
